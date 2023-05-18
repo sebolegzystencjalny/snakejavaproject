@@ -1,9 +1,9 @@
 import java.util.Random;
 import java.awt.Point;
 
-public class Food extends Entity {
+public class Frog extends Food {
     
-    public Food() {
+    public Frog() {
         int posX = generatePos(GameBoard.BOARD_WIDTH);
         int posY = generatePos(GameBoard.BOARD_HEIGHT);
         pos = new Point(posX, posY);

@@ -52,25 +52,25 @@ public class Snake {
         }
     }       
 
-public void increaseSize() {
-    snakeSize++;
-}
+    public void increaseSize() {
+        snakeSize++;
+    }
 
-public int[] getSnakeX() {
-    return Arrays.copyOf(snakeX, snakeSize);
-}
+    public int[] getSnakeX() {
+        return Arrays.copyOf(snakeX, snakeSize);
+    }
 
-public int[] getSnakeY() {
-    return Arrays.copyOf(snakeY, snakeSize);
-}
+    public int[] getSnakeY() {
+        return Arrays.copyOf(snakeY, snakeSize);
+    }
 
-public int getSnakeSize() {
-    return snakeSize;
-}
+    public int getSnakeSize() {
+        return snakeSize;
+    }
 
-private int generateRandomPosition(int max) {
-    Random random = new Random();
-    return random.nextInt(max / GameBoard.PIXEL_SIZE) * GameBoard.PIXEL_SIZE;
-}
+    private int generateRandomPosition(int max) {
+        Random random = new Random();
+        return random.nextInt(max / GameBoard.PIXEL_SIZE) * GameBoard.PIXEL_SIZE;
+    }
 }
 

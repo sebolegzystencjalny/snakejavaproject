@@ -77,7 +77,8 @@ public void move() {
     private void changeDirection() {
         // Generowanie losowego kierunku
         int newDirection = random.nextInt(4);
-
+        // int newDirection = getBestMove()
+        
         // Sprawdzenie czy nowy kierunek nie jest przeciwny do obecnego
         if (newDirection != (aiDirection + 2) % 4) {
             aiDirection = newDirection;
