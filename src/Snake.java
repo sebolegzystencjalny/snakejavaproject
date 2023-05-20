@@ -1,76 +1,78 @@
-import java.util.Arrays;
-import java.util.Random;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Snake {
+public class Snake extends MovingEntity implements Collidable, Renderable, Movable{
+    private LinkedList<Entity> body;
+    private int size;
 
-    private int[] snakeX;
-    private int[] snakeY;
-    private int snakeSize;
-
-    public Snake() {
-        initiateSnake();
+    public Snake(int x, int y, int _ID) {
+        super(x, y, Direction.UP);
+        size = 10;
+        setID(_ID);
+        setValues();
+        body = new LinkedList<>();
     }
-
-    public void initiateSnake() {
-        snakeX = new int[GameBoard.TOTAL_PIXELS];
-        snakeY = new int[GameBoard.TOTAL_PIXELS];
-        snakeSize = 40;
-
-        // Wygeneruj losową pozycję dla głowy węża
-        int headX = generateRandomPosition(GameBoard.BOARD_WIDTH);
-        int headY = generateRandomPosition(GameBoard.BOARD_HEIGHT);
-
-        // Ustaw głowę węża
-        snakeX[0] = headX;
-        snakeY[0] = headY;
-
-        // Wygeneruj pozycję dla reszty segmentów węża
-        for (int i = 1; i < snakeSize; i++) {
-            snakeX[i] = headX - i * GameBoard.PIXEL_SIZE;
-            snakeY[i] = headY;
-        }
+    
+    public Snake(int x, int y, int _ID, Direction _direction, int _size) {
+        super(x, y, _direction);
+        size = _size;
+        setID(_ID);
+        setValues();
+        body = new LinkedList<>();
     }
-
-    public void move(char direction) {
-        for (int i = snakeSize - 1; i > 0; i--) {
-            snakeX[i] = snakeX[i - 1];
-            snakeY[i] = snakeY[i - 1];
-        }
-        switch (direction) {
-        case 'U':
-            snakeY[0] -= GameBoard.PIXEL_SIZE;
-            break;
-        case 'D':
-            snakeY[0] += GameBoard.PIXEL_SIZE;
-            break;
-        case 'L':
-            snakeX[0] -= GameBoard.PIXEL_SIZE;
-            break;
-        case 'R':
-            snakeX[0] += GameBoard.PIXEL_SIZE;
-            break;
-        }
-    }       
-
+    
+    private void setValues(){
+        color = Color.ORANGE;
+        value = -100;
+    }
+    
     public void increaseSize() {
-        snakeSize++;
+        size++;
     }
 
-    public int[] getSnakeX() {
-        return Arrays.copyOf(snakeX, snakeSize);
+    public int getSize() {
+        return size;
     }
-
-    public int[] getSnakeY() {
-        return Arrays.copyOf(snakeY, snakeSize);
+    
+    @Override
+    public void move() {
+        body.add(new Entity(new Point(getX(),getY()), color, ID, value));//color id value
+        pos.translate(direction.getPoint());
+        if(body.size()>size){
+            body.removeFirst();
+        }
+        System.out.printf("size = %d, realsize = %d, position\n",size,body.size());
+    } 
+    
+    @Override
+    public boolean collidesWith(Entity entity){
+        var entityPos = entity.getPos();
+        for (Entity bodyPart : body) {
+            if (bodyPart.getPos().equals(entityPos)) {
+                return true;
+            }
+        }
+        return false;
     }
-
-    public int getSnakeSize() {
-        return snakeSize;
+    
+    @Override
+    public void render(java.awt.Graphics g) {
+        g.setColor(color);
+        g.fillRect(getX()*PIXEL_SIZE, getY()*PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        for (Entity bodyPart : body) {
+            g.fillRect(bodyPart.getX()*PIXEL_SIZE, bodyPart.getY()*PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        }
     }
-
-    private int generateRandomPosition(int max) {
-        Random random = new Random();
-        return random.nextInt(max / GameBoard.PIXEL_SIZE) * GameBoard.PIXEL_SIZE;
+    
+    @Override
+    public ArrayList<Point> locate() {
+        ArrayList<Point> localization = new ArrayList<>();
+        localization.add(pos);
+        for (Entity bodyPart : body) {
+            localization.add(bodyPart.getPos());
+        }
+        return localization;
     }
 }
-

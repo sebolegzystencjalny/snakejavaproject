@@ -1,14 +1,14 @@
 import java.awt.Color;
 
-public class Food extends Entity implements Renderable, Collidable {
-    public Food(int x, int y) {
+public class Obstacle extends Entity implements Renderable, Collidable {
+    public Obstacle(int x, int y) {
         super(x, y);
         setValues();
     }
 
     private void setValues(){
-        color = Color.RED;
-        value = 1;
+        color = Color.WHITE;
+        value = -100;
     }
     
     @Override
@@ -22,4 +22,5 @@ public class Food extends Entity implements Renderable, Collidable {
         // Collision logic with another object
         return getPos().equals(entity.getPos());
     }
+    
 }
