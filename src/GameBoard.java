@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class GameBoard extends JPanel implements ActionListener {
 
@@ -12,7 +15,9 @@ public final class GameBoard extends JPanel implements ActionListener {
     static final int BOARD_HEIGHT = 500;
 
     final Font font = new Font("TimesRoman", Font.BOLD, 20);
-
+    
+    GameState gameState = new GameState(80,50);
+    
     ArrayList<Movable> listOfMovables = new ArrayList<>();
     ArrayList<Renderable> listOfRenderables = new ArrayList<>();
     ArrayList<Collidable> listOfCollidables = new ArrayList<>();
@@ -20,15 +25,11 @@ public final class GameBoard extends JPanel implements ActionListener {
     
     Snake playerSnake;
     
-    char playerDirection = 'R';
     boolean inGame = false;
     
     final Timer timer = new Timer(150, this);
 
     public GameBoard() {
-//        listOfRenderables = new ArrayList<>();
-//        listOfMovables = new ArrayList<>();
-//        listOfCollidables = new ArrayList<>();
         this.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         this.setBackground(Color.DARK_GRAY);
         this.setFocusable(true);
@@ -37,26 +38,12 @@ public final class GameBoard extends JPanel implements ActionListener {
             public void keyPressed(KeyEvent e) {
                 if (inGame) {
                     switch (e.getKeyCode()) {
-//                        case KeyEvent.VK_LEFT:
-//                            if (playerDirection != 'R') {
-//                                playerDirection = 'L';
-//                            }
-//                            break;
-//                        case KeyEvent.VK_RIGHT:
-//                            if (playerDirection != 'L') {
-//                                playerDirection = 'R';
-//                            }
-//                            break;
-//                        case KeyEvent.VK_UP:
-//                            if (playerDirection != 'D') {
-//                                playerDirection = 'U';
-//                            }
-//                            break;
-//                        case KeyEvent.VK_DOWN:
-//                            if (playerDirection != 'U') {
-//                                playerDirection = 'D';
-//                            }
-//                            break;
+                        case KeyEvent.VK_LEFT:
+                            gameState.setRotation(Rotation.LEFT);
+                            break;
+                        case KeyEvent.VK_RIGHT:
+                            gameState.setRotation(Rotation.RIGHT);
+                            break;
                     }
                 } else {
                     initiateGame();
@@ -70,7 +57,7 @@ protected void initiateGame() {
     
     playerSnake = new Snake(5,5,5);
     listOfRenderables.add(playerSnake);
-    listOfRenderables.add(new Food(6,9));
+    listOfRenderables.add(new Food(50,20));
     listOfRenderables.add(new Frog(12,9));
     
     ArrayList<Obstacle> tmpObstacles = ObstacleGenerator.generateHollowRectangle(80, 50,0,0);
@@ -91,22 +78,12 @@ protected void initiateGame() {
         
     for (Renderable renderable : listOfRenderables) {
         // Check if the object is an instance of Renderable
-        if (renderable instanceof Movable) {
-            Movable movable = (Movable) renderable;
-            listOfMovables.add(movable);
+        if (renderable instanceof Collidable) {
+            Collidable collidable = (Collidable) renderable;
+            listOfCollidables.add(collidable);
         }
     }
     
-    for (Renderable renderable : listOfRenderables) {
-        // Check if the object is an instance of Renderable
-        if (renderable instanceof Movable) {
-            Movable movable = (Movable) renderable;
-            listOfMovables.add(movable);
-        }
-    }
-
-//    
-    playerDirection = 'R';
     inGame = true;
     timer.start();
 }
@@ -129,7 +106,9 @@ protected void initiateGame() {
 
     protected void move() {
         for (Movable movable : listOfMovables) {
+            movable.think(gameState);
             movable.move();
+            System.out.print(((Entity)movable).getID());
         }
     }
     
@@ -139,16 +118,25 @@ protected void initiateGame() {
 //        }
     }
     
+    private void observe() {
+        gameState.ereaseMap();
+        for (Collidable collidable : listOfCollidables) {
+            gameState.locateEntities(collidable.locate(),((Entity)collidable).getValue());
+        }
+    }
     
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-//            update();
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            observe();
             move();
             //collisionTest();
         }
-
         repaint();
     }
 }

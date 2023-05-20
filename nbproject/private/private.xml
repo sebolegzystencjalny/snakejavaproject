@@ -13,11 +13,15 @@
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MainApp.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Frog.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/SnakeGame.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/ObstacleGenerator.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameBoard.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Food.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Movable.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Collidable.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Obstacle.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameState.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MovingEntity.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/BFSAlgorithm.java</file>
         </group>
     </open-files>
 </project-private>

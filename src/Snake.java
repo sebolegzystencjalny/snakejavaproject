@@ -8,7 +8,7 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
     private int size;
 
     public Snake(int x, int y, int _ID) {
-        super(x, y, Direction.UP);
+        super(x, y, Direction.RIGHT);
         size = 10;
         setID(_ID);
         setValues();
@@ -43,7 +43,6 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         if(body.size()>size){
             body.removeFirst();
         }
-        System.out.printf("size = %d, realsize = %d, position\n",size,body.size());
     } 
     
     @Override
@@ -74,5 +73,10 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
             localization.add(bodyPart.getPos());
         }
         return localization;
+    }
+
+    @Override
+    public void think(GameState gameState) {
+        Rotate(gameState.getRotation());
     }
 }

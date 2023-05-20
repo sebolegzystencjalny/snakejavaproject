@@ -19,6 +19,8 @@ public enum Direction {
         Direction[] values = Direction.values();
         int currentIndex = this.ordinal();
         int newIndex = (currentIndex + rotation.getValue()) % values.length;
+        if (newIndex == -1)
+            newIndex = 3;
         return values[newIndex];
     }
 }

@@ -28,9 +28,13 @@ public class Point{
         this.y += dy;
     }
     
-    public void translate(Point point) {
-        this.x = x + point.getX();
-        this.y = y + point.getY();
+    public Point translate(Point point) {
+//        System.out.printf("%d, %d\n",point.getX(), point.getY());
+//        System.out.printf("%d, %d\n",getX(), getY());
+        this.x += point.getX();
+        this.y += point.getY();
+//        System.out.printf("%d, %d\n",getX(), getY());
+        return this;
     }
     
     public boolean equals(Point point) {

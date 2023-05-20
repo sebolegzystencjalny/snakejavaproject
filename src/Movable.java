@@ -1,4 +1,4 @@
 public interface Movable {
     void move();
-//    void decide(GameState gameState);
+    void think(GameState gameState);
 }
