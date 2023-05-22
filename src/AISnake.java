@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AISnake extends Snake implements Movable {
-    public static LinkedList<Point> Patch = new LinkedList<>();
+    private LinkedList<Point> Patch = new LinkedList<>();
     private int[][] map;
     private Point target;
     
@@ -22,7 +22,6 @@ public class AISnake extends Snake implements Movable {
         map = _gameState.getPreparedMap(pos);
         if(!patchClear() || !targetExist() || Patch.isEmpty()){
             target = findTarget();
-            System.out.printf("%d, %d ,%d, %d\n",pos.getX(), pos.getY(), target.getX(), target.getY());
             Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()), target);
             if(Patch.isEmpty()){
                 survive(_gameState);
@@ -81,6 +80,7 @@ public class AISnake extends Snake implements Movable {
 //            System.out.printf("%d, %d\n",tmp.getX(), tmp.getY());
             direction = pos.getDirection(tmp);
 //            System.out.printf("%d, %d\n",direction.getPoint().getX(), direction.getPoint().getY());
+
         }
     }
 }

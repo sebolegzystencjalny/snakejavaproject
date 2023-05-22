@@ -3,12 +3,13 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Snake extends MovingEntity implements Collidable, Renderable, Movable{
+public class Snake extends MovingEntity implements Collidable, Renderable, Movable, Playable{
     private LinkedList<Entity> body;
     private int size;
-
+    private Texture texture;
+    
     public Snake(int x, int y, int _ID) {
-        super(x, y, Direction.RIGHT);
+        super(x, y, Direction.UP);
         size = 10;
         setID(_ID);
         setValues();
@@ -36,6 +37,7 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         return size;
     }
     
+    
     @Override
     public void move() {
         body.add(new Entity(new Point(getX(),getY()), color, ID, value));//color id value
@@ -43,7 +45,7 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         if(body.size()>size){
             body.removeFirst();
         }
-    } 
+    }
     
     @Override
     public boolean collidesWith(Entity entity){
@@ -63,6 +65,10 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         for (Entity bodyPart : body) {
             g.fillRect(bodyPart.getX()*PIXEL_SIZE, bodyPart.getY()*PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
         }
+        
+        texture = TextureLoader.getTexture(getDirection());
+        texture.updateImage(getPos());
+        texture.render(g);
     }
     
     @Override
@@ -77,6 +83,7 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
 
     @Override
     public void think(GameState gameState) {
-        Rotate(gameState.getRotation());
+        Rotation newRotation = gameState.getRotation();
+        Rotate(newRotation);
     }
 }

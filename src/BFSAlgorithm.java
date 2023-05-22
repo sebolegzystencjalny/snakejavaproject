@@ -1,10 +1,5 @@
 import java.util.*;
 
-//wyznacz trase                    <-|   
-//sprawdz czy trasa aktualana        |   
-//nieaktualna wyznacz nową trase    -|
-//aktualna nic nie rób
-//rusz się
 public class BFSAlgorithm {
     public static LinkedList<Point> findPath(int[][] map, Point start, Point end) {
         int rows = map.length;

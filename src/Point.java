@@ -51,7 +51,7 @@ public class Point{
     public Direction getDirection(Point targetPoint){
         Point nextPos = new Point( targetPoint);
         Point currentPos = new Point(this);
-        System.out.printf("%d, %d\n",nextPos.getX(), currentPos.getX());
+//        System.out.printf("%d, %d\n",nextPos.getX(), currentPos.getX());
         nextPos = nextPos.translate(-currentPos.getX(),-currentPos.getY());
         return Direction.getDirection(nextPos);
     }

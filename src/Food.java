@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Food extends Entity implements Renderable, Collidable {
+public class Food extends Entity implements Renderable, Collidable, Edible {
     public Food(int x, int y) {
         super(x, y);
         setValues();

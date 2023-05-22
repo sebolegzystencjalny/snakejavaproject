@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.util.Random;
 
-public class Frog extends MovingEntity implements Collidable, Renderable, Movable {
+public class Frog extends MovingEntity implements Collidable, Renderable, Movable, Edible {
     private boolean freezed = false;
             
     public Frog(int x, int y, Direction _direction) {
