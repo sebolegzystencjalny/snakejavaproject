@@ -1,3 +1,4 @@
+
 public class Point{
     private int x;
     private int y;
@@ -7,6 +8,11 @@ public class Point{
         this.y = y;
     }
 
+    public Point(Point orginalPoint) {
+        this.x = orginalPoint.getX();
+        this.y = orginalPoint.getY();
+    }
+        
     public int getX() {
         return x;
     }
@@ -23,9 +29,10 @@ public class Point{
         this.y = y;
     }
     
-    public void translate(int dx, int dy) {
+    public Point translate(int dx, int dy) {
         this.x += dx;
         this.y += dy;
+        return this;
     }
     
     public Point translate(Point point) {
@@ -41,4 +48,11 @@ public class Point{
         return x == point.getX() && y == point.getY();
     }
     
+    public Direction getDirection(Point targetPoint){
+        Point nextPos = new Point( targetPoint);
+        Point currentPos = new Point(this);
+        System.out.printf("%d, %d\n",nextPos.getX(), currentPos.getX());
+        nextPos = nextPos.translate(-currentPos.getX(),-currentPos.getY());
+        return Direction.getDirection(nextPos);
+    }
 }

@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +25,7 @@ public final class GameBoard extends JPanel implements ActionListener {
     ArrayList<Obstacle> listOfObstacles = new ArrayList<>();
     
     Snake playerSnake;
-    
+    Food apple;
     boolean inGame = false;
     
     final Timer timer = new Timer(150, this);
@@ -55,9 +56,10 @@ public final class GameBoard extends JPanel implements ActionListener {
 
 protected void initiateGame() {
     
-    playerSnake = new Snake(5,5,5);
+    playerSnake = new AISnake(40,40,5);
+    apple = new Food(10,13); 
     listOfRenderables.add(playerSnake);
-    listOfRenderables.add(new Food(50,20));
+    listOfRenderables.add(apple);
     listOfRenderables.add(new Frog(12,9));
     
     ArrayList<Obstacle> tmpObstacles = ObstacleGenerator.generateHollowRectangle(80, 50,0,0);
@@ -108,14 +110,28 @@ protected void initiateGame() {
         for (Movable movable : listOfMovables) {
             movable.think(gameState);
             movable.move();
-            System.out.print(((Entity)movable).getID());
+//            System.out.print(((Entity)movable).getID());
         }
     }
     
     protected void collisionTest() {
-//        for (Collidable  : listOfMovables) {
-//            movable.move();
-//        }
+        for (Collidable collidable : listOfCollidables) {
+//            if(collidable.collidesWith(playerSnake)){
+//                playerSnake.setX(40);
+//                playerSnake.setY(40);
+//                System.out.print("boom");
+//            }
+            Random random = new Random();
+            int randomX = 1 + random.nextInt(78);
+            int randomY = 1 + random.nextInt(48);
+            
+            if(playerSnake.collidesWith(apple)){
+                apple.setX(randomX);
+                apple.setY(randomY);
+                playerSnake.increaseSize();
+                System.out.print("omnomnom");
+            }
+        }
     }
     
     private void observe() {
@@ -128,14 +144,14 @@ protected void initiateGame() {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             observe();
             move();
-            //collisionTest();
+            collisionTest();
         }
         repaint();
     }

@@ -44,12 +44,19 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
 
     @Override
     public void think(GameState gameState) {
-        Direction[] directions = Direction.values();
-        Random random = new Random();
-        int randomIndex = random.nextInt(4);
-        direction = directions[randomIndex];
-        int i = 4;
-        while(0 > gameState.getValue(getPos().translate(direction.getPoint()))){
+        Rotation[] rotations = Rotation.values();
+//        Random random = new Random();
+//        int randomIndex = random.nextInt(3);
+//        Rotation rotation = rotations[randomIndex];
+        Rotation rotation;
+        Direction nextDirection = direction;
+        Point nextPosition = new Point(pos).translate(nextDirection.getPoint());
+//        direction.rotate(rotation);
+        int i = 2;
+        while(0 > gameState.getValue(nextPosition)){
+            rotation = rotations[i];
+            nextDirection = direction.rotate(rotation);
+            nextPosition = new Point(pos).translate(nextDirection.getPoint());
             direction = direction.rotate(Rotation.LEFT);
 //            System.out.printf("%d, %d , %d\n",i, direction.getPoint().getX(), direction.getPoint().getY());
             i--;
@@ -60,3 +67,4 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
         }
     }
 }
+//nie dziwic sie 

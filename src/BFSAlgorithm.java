@@ -6,10 +6,9 @@ import java.util.*;
 //aktualna nic nie rób
 //rusz się
 public class BFSAlgorithm {
-    public static List<Point> findPath(int[][] map, Point start, Point end) {
+    public static LinkedList<Point> findPath(int[][] map, Point start, Point end) {
         int rows = map.length;
         int cols = map[0].length;
-
         boolean[][] visited = new boolean[rows][cols];
         Point[][] parent = new Point[rows][cols];
 
@@ -36,15 +35,15 @@ public class BFSAlgorithm {
             }
         }
 
-        return new ArrayList<>(); // No path found
+        return new LinkedList<>(); // No path found
     }
 
      private static boolean isValidMove(int[][] map, boolean[][] visited, int row, int col) {
         return (!visited[row][col] && map[row][col] > -1);
     }
 
-    private static List<Point> constructPath(Point[][] parent, Point start, Point end) {
-        List<Point> path = new ArrayList<>();
+    private static LinkedList<Point> constructPath(Point[][] parent, Point start, Point end) {
+        LinkedList<Point> path = new LinkedList<>();
         Point current = end;
 
         while (!current.equals(start)) {

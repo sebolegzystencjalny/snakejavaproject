@@ -10,7 +10,15 @@ public enum Direction {
     Direction(Point directionPoint) {
         this.point = directionPoint;
     }
-
+    
+    public static Direction getDirection(Point directionPoint){
+        for (Direction direction : Direction.values()) {
+            if(directionPoint.equals(direction.getPoint()))
+                return direction;
+        }
+        return Direction.RIGHT;
+    }
+    
     public Point getPoint() {
         return point;
     }
@@ -23,4 +31,5 @@ public enum Direction {
             newIndex = 3;
         return values[newIndex];
     }
+    
 }
