@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
 
 class GameState {
     private Rotation playerRotation;
@@ -71,5 +73,19 @@ class GameState {
 
     private boolean inRange(int _x, int _y) {
         return (_x > -1 && _y > -1 && _x < x && _y < y);
+    }
+    
+    public Point randomFreeSpace(){
+        LinkedList <Point> freeSpace = new LinkedList<>();
+        for (int i = 0; i < x; i++){
+            for (int j = 0; j < y; j++){
+                if (map[i][j] == 0){
+                    freeSpace.add(new Point(i,j));
+                }
+            }
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(freeSpace.size());
+        return freeSpace.get(randomIndex);
     }
 }

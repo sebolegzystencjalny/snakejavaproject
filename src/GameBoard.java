@@ -4,11 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public final class GameBoard extends JPanel implements ActionListener {
 
@@ -28,7 +26,6 @@ public final class GameBoard extends JPanel implements ActionListener {
     ArrayList<Edible> listOfEdibles = new ArrayList<>();
     
     Snake playerSnake;
-    Food apple;
     boolean inGame = false;
     
     final Timer timer = new Timer(150, this);
@@ -60,15 +57,26 @@ public final class GameBoard extends JPanel implements ActionListener {
 
 protected void initiateGame() {
     
-    playerSnake = new AISnake(40,40,5);
-    apple = new Food(10,13); 
-    
+    playerSnake = new AISnake(1,40,5);
+//    apple = new Food(10,13); 
+    Color[] values = {Color.BLUE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.ORANGE};
     listOfPlayables.add(playerSnake);
-    listOfEdibles.add(apple);
-    listOfPlayables.add(  new AISnake(50,40,5));
-    listOfPlayables.add(  new AISnake(10,40,5));
-    listOfPlayables.add(  new AISnake(20,40,5));
-    listOfPlayables.add(  new AISnake(30,40,5));
+    listOfEdibles.add(new Food(10,13));
+    listOfEdibles.add(new Food(10,13));
+    listOfEdibles.add(new Food(10,13));
+    listOfEdibles.add(new Food(10,13));
+    for (int i = 1; i < 15; i++){
+        Playable testSnake = new AISnake(i * 5,40,5);
+        ((Entity) testSnake).setColor(values[i%values.length]);
+        listOfPlayables.add(testSnake);
+    }
+//    listOfPlayables.add(  new AISnake(65,40,5));
+//    listOfPlayables.add(  new AISnake(70,40,5));
+//    listOfPlayables.add(  new AISnake(75,40,5));
+//    listOfPlayables.add(  new AISnake(50,40,5));
+//    listOfPlayables.add(  new AISnake(10,40,5));
+//    listOfPlayables.add(  new AISnake(20,40,5));
+//    listOfPlayables.add(  new AISnake(30,40,5));
     listOfEdibles.add(new Frog(12,9));
     
     ArrayList<Obstacle> tmpObstacles = ObstacleGenerator.generateHollowRectangle(80, 50,0,0);
@@ -151,19 +159,32 @@ protected void initiateGame() {
 //                System.out.print("omnomnom");
 //            }
 //        }
+//        ArrayList<Playable> snakes = listOfPlayables.copy();
+//        for (Playable playable : listOfPlayables) {
+//            
+//        }   
+        ArrayList<Playable> deadSnakes = new ArrayList<>();
         for (Playable playable : listOfPlayables) {
             for (Edible edible : listOfEdibles) {
-                Random random = new Random();
-                int randomX = 1 + random.nextInt(78);
-                int randomY = 1 + random.nextInt(48);
-
                 if(((Collidable)edible).collidesWith((Entity)playable)){
-                    apple.setX(randomX);
-                    apple.setY(randomY);
+                    ((Entity)edible).setPos(gameState.randomFreeSpace());
                     ((Snake)playable).increaseSize();
                     System.out.print("omnomnom");
                 }
             }
+            for (Collidable collidable : listOfCollidables) {
+                if((collidable).collidesWith((Entity)playable)){
+                    if(collidable instanceof Edible)
+                        break;
+                    deadSnakes.add(playable);
+                }
+            }
+        }
+        for (Playable playable : deadSnakes) {
+            listOfPlayables.remove(playable);
+            listOfRenderables.remove((Renderable)playable);
+            listOfCollidables.remove((Collidable)playable);
+            listOfMovables.remove((Movable)playable);
         }
     }
     
@@ -184,6 +205,7 @@ protected void initiateGame() {
 //            }
             observe();
             move();
+            observe();
             collisionTest();
         }
         repaint();

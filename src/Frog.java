@@ -19,6 +19,10 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
         value = 5;
     }
     
+    public void unfreeze(){
+        freezed = false;
+    }
+    
     public void freeze(){
         freezed = true;
     }
@@ -53,6 +57,7 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
         Point nextPosition = new Point(pos).translate(nextDirection.getPoint());
 //        direction.rotate(rotation);
         int i = 2;
+        unfreeze();
         while(0 > gameState.getValue(nextPosition)){
             rotation = rotations[i];
             nextDirection = direction.rotate(rotation);

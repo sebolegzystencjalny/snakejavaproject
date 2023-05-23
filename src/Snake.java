@@ -50,6 +50,10 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
     @Override
     public boolean collidesWith(Entity entity){
         var entityPos = entity.getPos();
+        if(entity != this)
+            if (getPos().equals(entityPos)) {
+                return true;
+            }
         for (Entity bodyPart : body) {
             if (bodyPart.getPos().equals(entityPos)) {
                 return true;

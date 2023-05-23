@@ -32,6 +32,39 @@ public class BFSAlgorithm {
 
         return new LinkedList<>(); // No path found
     }
+    
+    public static LinkedList<Point> findPath(int[][] map, Point start) {
+        int rows = map.length;
+        int cols = map[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        Point[][] parent = new Point[rows][cols];
+
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(start);
+        visited[start.getX()][start.getY()] = true;
+
+        while (!queue.isEmpty()) {
+            Point current = queue.poll();
+
+            if (map[current.getX()][current.getY()]>0) {
+                Point end = new Point(current);
+                return constructPath(parent, start, end);
+            }
+
+            for (Direction move : Direction.values()) {
+                int newRow = current.getX() + move.getPoint().getX();
+                int newCol = current.getY() + move.getPoint().getY();
+                if (isValidMove(map, visited, newRow, newCol)) {
+                    Point neighbor = new Point(newRow, newCol);
+                    queue.add(neighbor);
+                    visited[newRow][newCol] = true;
+                    parent[newRow][newCol] = current;
+                }
+            }
+        }
+
+        return new LinkedList<>(); // No path found
+    }
 
      private static boolean isValidMove(int[][] map, boolean[][] visited, int row, int col) {
         return (!visited[row][col] && map[row][col] > -1);

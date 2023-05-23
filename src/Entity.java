@@ -74,7 +74,7 @@ public class Entity implements Renderable, Collidable{
         return pos;
     }
     
-    public void setPoint(Point _pos) {
+    public void setPos(Point _pos) {
         pos = _pos;
     }
     
