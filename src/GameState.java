@@ -4,20 +4,18 @@ import java.util.LinkedList;
 import java.util.Random;
 
 class GameState {
-    private Rotation playerRotation;
+    ArrayList<Integer> input = new ArrayList<>();
     private int[][] map;
     private int x;
     private int y;
     
     GameState(){
-        playerRotation = Rotation.FORWARD;
         map = new int[1][1];
         x = 1;
         y = 1;
     }   
     
     GameState(int _x, int _y){
-        playerRotation = Rotation.FORWARD;
         map = new int[_x][_y];
         x = _x;
         y = _y;
@@ -60,16 +58,6 @@ class GameState {
             }
         }
     }
-    
-    public Rotation getRotation(){
-        Rotation rotation = playerRotation;
-        playerRotation = Rotation.FORWARD;
-        return rotation;
-    }
-    
-    public void setRotation(Rotation rotation){
-        playerRotation = rotation;
-    }
 
     private boolean inRange(int _x, int _y) {
         return (_x > -1 && _y > -1 && _x < x && _y < y);
@@ -87,5 +75,17 @@ class GameState {
         Random random = new Random();
         int randomIndex = random.nextInt(freeSpace.size());
         return freeSpace.get(randomIndex);
+    }
+
+    public ArrayList getInputed(){
+        return input;
+    }
+    
+    public void addInput(int key){
+        input.add(key);
+    }
+    
+    void clearInput() {
+        input.clear();
     }
 }

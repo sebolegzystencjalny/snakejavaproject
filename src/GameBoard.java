@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -12,7 +13,7 @@ public final class GameBoard extends JPanel implements ActionListener {
 
     static final int BOARD_WIDTH = 800;
     static final int BOARD_HEIGHT = 500;
-
+    private int ID;
     final Font font = new Font("TimesRoman", Font.BOLD, 20);
     
     GameState gameState = new GameState(80,50);
@@ -25,7 +26,6 @@ public final class GameBoard extends JPanel implements ActionListener {
     ArrayList<Playable> listOfPlayables = new ArrayList<>();
     ArrayList<Edible> listOfEdibles = new ArrayList<>();
     
-    Snake playerSnake;
     boolean inGame = false;
     
     final Timer timer = new Timer(150, this);
@@ -39,14 +39,7 @@ public final class GameBoard extends JPanel implements ActionListener {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (inGame) {
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_LEFT:
-                            gameState.setRotation(Rotation.LEFT);
-                            break;
-                        case KeyEvent.VK_RIGHT:
-                            gameState.setRotation(Rotation.RIGHT);
-                            break;
-                    }
+                    gameState.addInput(e.getKeyCode());
                 } else {
                     initiateGame();
                 }
@@ -55,67 +48,14 @@ public final class GameBoard extends JPanel implements ActionListener {
         initiateGame();
     }
 
-protected void initiateGame() {
-    
-    playerSnake = new AISnake(1,40,5);
-//    apple = new Food(10,13); 
-    Color[] values = {Color.BLUE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.ORANGE};
-    listOfPlayables.add(playerSnake);
-    listOfEdibles.add(new Food(10,13));
-    listOfEdibles.add(new Food(10,13));
-    listOfEdibles.add(new Food(10,13));
-    listOfEdibles.add(new Food(10,13));
-    for (int i = 1; i < 15; i++){
-        Playable testSnake = new AISnake(i * 5,40,5);
-        ((Entity) testSnake).setColor(values[i%values.length]);
-        listOfPlayables.add(testSnake);
+    protected void initiateGame() {
+        ID = 0;
+        ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE));
+        inintializeEntities(1,0,values,2,1);
+
+        inGame = true;
+        timer.start();
     }
-//    listOfPlayables.add(  new AISnake(65,40,5));
-//    listOfPlayables.add(  new AISnake(70,40,5));
-//    listOfPlayables.add(  new AISnake(75,40,5));
-//    listOfPlayables.add(  new AISnake(50,40,5));
-//    listOfPlayables.add(  new AISnake(10,40,5));
-//    listOfPlayables.add(  new AISnake(20,40,5));
-//    listOfPlayables.add(  new AISnake(30,40,5));
-    listOfEdibles.add(new Frog(12,9));
-    
-    ArrayList<Obstacle> tmpObstacles = ObstacleGenerator.generateHollowRectangle(80, 50,0,0);
-    listOfObstacles.addAll(tmpObstacles);
-    
-    for (Edible edible : listOfEdibles) {
-        Renderable renderable = (Renderable) edible;
-        listOfRenderables.add(renderable);
-    }
-    
-    for (Playable playable : listOfPlayables) {
-        Renderable renderable = (Renderable) playable;
-        listOfRenderables.add(renderable);
-    }
-    
-    for (Obstacle obstacle : listOfObstacles) {
-        Renderable renderable = (Renderable) obstacle;
-        listOfRenderables.add(renderable);
-    }
-    
-    for (Renderable renderable : listOfRenderables) {
-        // Check if the object is an instance of Renderable
-        if (renderable instanceof Movable) {
-            Movable movable = (Movable) renderable;
-            listOfMovables.add(movable);
-        }
-    }
-        
-    for (Renderable renderable : listOfRenderables) {
-        // Check if the object is an instance of Renderable
-        if (renderable instanceof Collidable) {
-            Collidable collidable = (Collidable) renderable;
-            listOfCollidables.add(collidable);
-        }
-    }
-    
-    inGame = true;
-    timer.start();
-}
 
 
     @Override
@@ -126,50 +66,100 @@ protected void initiateGame() {
                 entity.render(g);
             }
         } else {
-            String scoreText = String.format("Game Over... Score: %d... Press any key to play again!");
+            String scoreText = String.format("Game Over Press any key to play again!");
             g.setColor(Color.BLACK);
             g.setFont(font);
             g.drawString(scoreText, (BOARD_WIDTH - getFontMetrics(g.getFont()).stringWidth(scoreText)) / 2, BOARD_HEIGHT / 2);
         }
     }
+    private void incrementID(){
+        ID++;
+    }
+    
+    public void addEntity(Entity entity){
+        observe();
+        entity.setPos(gameState.randomFreeSpace());
+        if (entity instanceof Movable) {
+            listOfMovables.add((Movable)entity);
+        }
+        if (entity instanceof Edible) {
+            listOfEdibles.add((Edible)entity);
+        } 
+        if (entity instanceof Playable) {
+            listOfPlayables.add((Playable)entity); 
+        }
 
+        listOfRenderables.add((Renderable)entity);
+        listOfCollidables.add((Collidable)entity);
+        entity.setID(ID);
+        incrementID();
+    }
+    
+    public void removeEntity(Entity entity){
+        if (entity instanceof Movable) {
+            listOfMovables.remove((Movable)entity);
+        }
+        if (entity instanceof Edible) {
+            listOfEdibles.remove((Edible)entity);
+        } 
+        if (entity instanceof Playable) {
+            listOfPlayables.remove((Playable)entity); 
+        }
+        if (entity instanceof Obstacle) {
+            listOfObstacles.remove((Obstacle)entity); 
+        }
+
+        listOfRenderables.remove((Renderable)entity);
+        listOfCollidables.remove((Collidable)entity);
+    }
+    
+    public void inintializeEntities(int snakes, int aiSnakes, ArrayList<Color> color, int food, int frogs){
+        ArrayList<Obstacle> tmpObstacles = ObstacleGenerator.generateHollowRectangle(80, 50,0,0);
+        
+        listOfObstacles.addAll(tmpObstacles);
+        for (Obstacle obstacle : listOfObstacles) {
+            Renderable renderable = (Renderable) obstacle;
+            listOfRenderables.add(renderable);
+            listOfCollidables.add((Collidable) obstacle);
+        }
+        for (int i = 0; i < snakes; i++){
+            Entity entity = new PlayableSnake(1,40,ID);
+            entity.setColor(color.get(i%color.size()));
+            addEntity(entity);
+        }
+        
+        for (int i = 0; i < aiSnakes; i++){
+            Entity entity = new AISnake(i * 5,40,5);
+            entity.setColor(color.get(i%color.size()));
+            addEntity(entity);
+        }
+        
+        for (int i = 0; i < food; i++){
+            Entity entity =  new Food(10,13);
+            addEntity(entity);
+        }
+        
+        for (int i = 0; i < frogs; i++){
+            Entity entity = new Frog(12,9);
+            addEntity(entity);
+        }
+    }
+    
     protected void move() {
         for (Movable movable : listOfMovables) {
             movable.think(gameState);
             movable.move();
-//            System.out.print(((Entity)movable).getID());
         }
+        gameState.clearInput();
     }
     
     protected void collisionTest() {
-//        for (Collidable collidable : listOfCollidables) {
-////            if(collidable.collidesWith(playerSnake)){
-////                playerSnake.setX(40);
-////                playerSnake.setY(40);
-////                System.out.print("boom");
-////            }
-//            Random random = new Random();
-//            int randomX = 1 + random.nextInt(78);
-//            int randomY = 1 + random.nextInt(48);
-//            
-//            if(playerSnake.collidesWith(apple)){
-//                apple.setX(randomX);
-//                apple.setY(randomY);
-//                playerSnake.increaseSize();
-//                System.out.print("omnomnom");
-//            }
-//        }
-//        ArrayList<Playable> snakes = listOfPlayables.copy();
-//        for (Playable playable : listOfPlayables) {
-//            
-//        }   
         ArrayList<Playable> deadSnakes = new ArrayList<>();
         for (Playable playable : listOfPlayables) {
             for (Edible edible : listOfEdibles) {
                 if(((Collidable)edible).collidesWith((Entity)playable)){
                     ((Entity)edible).setPos(gameState.randomFreeSpace());
                     ((Snake)playable).increaseSize();
-                    System.out.print("omnomnom");
                 }
             }
             for (Collidable collidable : listOfCollidables) {
@@ -181,10 +171,7 @@ protected void initiateGame() {
             }
         }
         for (Playable playable : deadSnakes) {
-            listOfPlayables.remove(playable);
-            listOfRenderables.remove((Renderable)playable);
-            listOfCollidables.remove((Collidable)playable);
-            listOfMovables.remove((Movable)playable);
+            removeEntity((Entity)playable);
         }
     }
     
@@ -193,16 +180,13 @@ protected void initiateGame() {
         for (Collidable collidable : listOfCollidables) {
             gameState.locateEntities(collidable.locate(),((Entity)collidable).getValue());
         }
+        if(listOfPlayables.isEmpty())
+            inGame = false;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
-//            }
             observe();
             move();
             observe();

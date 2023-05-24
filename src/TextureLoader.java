@@ -14,7 +14,7 @@ public class TextureLoader {
     }
 
     public static Texture getTexture(Direction direction) {
-        System.out.print((direction.getPoint().getX()+1)+" "+(direction.getPoint().getY()+1) + "\n");
+//        System.out.print((direction.getPoint().getX()+1)+" "+(direction.getPoint().getY()+1) + "\n");
         return loadedHeadTextures[direction.getPoint().getX()+1][direction.getPoint().getY()+1];
     }
 }

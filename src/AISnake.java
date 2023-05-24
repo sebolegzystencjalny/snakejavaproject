@@ -20,6 +20,7 @@ public class AISnake extends Snake implements Movable {
     @Override
     public void think(GameState _gameState){
         map = _gameState.getPreparedMap(pos);
+        
         if(!patchClear() || !targetExist() || Patch.isEmpty()){
             target = findTarget();
             Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()));
@@ -29,6 +30,7 @@ public class AISnake extends Snake implements Movable {
             }
         }
         followPatch();
+        survive(_gameState);
     }
 
     private void survive(GameState gameState) {
@@ -76,15 +78,11 @@ public class AISnake extends Snake implements Movable {
 
     private void followPatch() {
         if(!Patch.isEmpty()){
-            if(Patch.size()>1){
-                Point tmp = new Point(Patch.get(1));
+            Patch.removeFirst();
+            if(!Patch.isEmpty()){
+                Point tmp = new Point(Patch.getFirst());
                 direction = pos.getDirection(tmp);
             }
-            Patch.removeFirst();
-//            System.out.printf("%d, %d\n",tmp.getX(), tmp.getY());
-            
-//            System.out.printf("%d, %d\n",direction.getPoint().getX(), direction.getPoint().getY());
-
         }
     }
 }

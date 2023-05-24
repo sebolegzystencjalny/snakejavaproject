@@ -47,7 +47,7 @@ public class Entity implements Renderable, Collidable{
     }
     
     public void setID(int _ID){
-        ID = _ID;
+        this.ID = _ID;
     }
     
     public int getID(){
@@ -55,7 +55,7 @@ public class Entity implements Renderable, Collidable{
     }
     
     public void setColor(Color _color){
-        color = _color;
+        this.color = _color;
     }
     
     public Color getColor(){
@@ -75,7 +75,7 @@ public class Entity implements Renderable, Collidable{
     }
     
     public void setPos(Point _pos) {
-        pos = _pos;
+        this.pos = _pos;
     }
     
     public void setX(int _X) {
