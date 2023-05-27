@@ -51,7 +51,7 @@ public final class GameBoard extends JPanel implements ActionListener {
     protected void initiateGame() {
         ID = 0;
         ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE));
-        inintializeEntities(1,0,values,2,1);
+        inintializeEntities(1,10,values,2,1);
 
         inGame = true;
         timer.start();
@@ -82,13 +82,12 @@ public final class GameBoard extends JPanel implements ActionListener {
         if (entity instanceof Movable) {
             listOfMovables.add((Movable)entity);
         }
-        if (entity instanceof Edible) {
-            listOfEdibles.add((Edible)entity);
-        } 
         if (entity instanceof Playable) {
             listOfPlayables.add((Playable)entity); 
         }
-
+        if (entity instanceof Edible) {
+            listOfEdibles.add((Edible)entity);
+        } 
         listOfRenderables.add((Renderable)entity);
         listOfCollidables.add((Collidable)entity);
         entity.setID(ID);
@@ -147,6 +146,7 @@ public final class GameBoard extends JPanel implements ActionListener {
     
     protected void move() {
         for (Movable movable : listOfMovables) {
+            observe();
             movable.think(gameState);
             movable.move();
         }
@@ -187,7 +187,6 @@ public final class GameBoard extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-            observe();
             move();
             observe();
             collisionTest();

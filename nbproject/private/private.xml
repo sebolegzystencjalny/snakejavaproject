@@ -3,32 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Rotation.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Renderable.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/AISnake.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MainApp.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/SnakeGame.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameBoard.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameState.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Playable.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameOverView.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Snake.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/PlayableSnake.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Edible.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MenuView.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/TextureLoader.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Texture.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Direction.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Entity.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Point.java</file>
             <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Frog.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/ObstacleGenerator.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Food.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Collidable.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Movable.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Obstacle.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MovingEntity.java</file>
-            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/BFSAlgorithm.java</file>
         </group>
     </open-files>
 </project-private>
