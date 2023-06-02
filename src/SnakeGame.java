@@ -19,15 +19,15 @@ public class SnakeGame extends JFrame {
     public SnakeGame() {
         this.setBackground(Color.DARK_GRAY);
         this.setFocusable(true);
-        this.set
-//        this.add(new GameBoard());
+//        this.set
+       
         mainPanel = new JPanel();
         this.add(mainPanel);
         menuView = new MenuView();
-       
-        mainPanel.add(menuView, "menuView");
-        this.setTitle("Snake Game");
-        this.setPreferredSize(new Dimension(800, 500));
+        mainPanel.add(new GameBoard());
+//        mainPanel.add(menuView, "menuView");
+        this.setTitle("Snake Game");//cos do aktalnego i ciagle nasluchwiac>?
+        this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.DARK_GRAY);
         this.setFocusable(true);
         this.addKeyListener(new KeyAdapter() {
