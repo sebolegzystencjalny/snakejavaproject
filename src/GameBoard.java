@@ -6,7 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 
 public final class GameBoard extends JPanel implements ActionListener {
@@ -50,13 +49,26 @@ public final class GameBoard extends JPanel implements ActionListener {
 
     protected void initiateGame() {
         ID = 0;
+        inGame = false;
+        timer.stop();
+        
+        listOfMovables = new ArrayList<>();
+        listOfRenderables = new ArrayList<>();
+        listOfCollidables = new ArrayList<>();
+    
+        listOfObstacles = new ArrayList<>();
+        listOfPlayables = new ArrayList<>();
+        listOfEdibles = new ArrayList<>();
+    }
+    
+    protected void initiateGame(int snakes, int food, int frogs) {
+        ID = 0;
         ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE));
-        inintializeEntities(1,10,values,2,1);
+        inintializeEntities(1,snakes-1,values,food,frogs);
 
         inGame = true;
         timer.start();
     }
-
 
     @Override
     protected void paintComponent(java.awt.Graphics g) {
@@ -66,7 +78,7 @@ public final class GameBoard extends JPanel implements ActionListener {
                 entity.render(g);
             }
         } else {
-            String scoreText = String.format("Game Over Press any key to play again!");
+            String scoreText = String.format("Game Over!");
             g.setColor(Color.BLACK);
             g.setFont(font);
             g.drawString(scoreText, (BOARD_WIDTH - getFontMetrics(g.getFont()).stringWidth(scoreText)) / 2, BOARD_HEIGHT / 2);
@@ -95,21 +107,21 @@ public final class GameBoard extends JPanel implements ActionListener {
     }
     
     public void removeEntity(Entity entity){
-        if (entity instanceof Movable) {
-            listOfMovables.remove((Movable)entity);
-        }
-        if (entity instanceof Edible) {
-            listOfEdibles.remove((Edible)entity);
-        } 
+//        if (entity instanceof Movable) {
+//            listOfMovables.remove((Movable)entity);
+//        }
+//        if (entity instanceof Edible) {
+//            listOfEdibles.remove((Edible)entity);
+//        } 
         if (entity instanceof Playable) {
             listOfPlayables.remove((Playable)entity); 
         }
-        if (entity instanceof Obstacle) {
-            listOfObstacles.remove((Obstacle)entity); 
-        }
+//        if (entity instanceof Obstacle) {
+//            listOfObstacles.remove((Obstacle)entity); 
+//        }
 
-        listOfRenderables.remove((Renderable)entity);
         listOfCollidables.remove((Collidable)entity);
+        listOfRenderables.remove((Renderable)entity);
     }
     
     public void inintializeEntities(int snakes, int aiSnakes, ArrayList<Color> color, int food, int frogs){
@@ -151,6 +163,10 @@ public final class GameBoard extends JPanel implements ActionListener {
             movable.move();
         }
         gameState.clearInput();
+    }
+    
+    public void addInput(int key){
+        gameState.addInput(key);
     }
     
     protected void collisionTest() {
