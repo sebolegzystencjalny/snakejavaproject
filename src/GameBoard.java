@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public final class GameBoard extends JPanel implements ActionListener {
@@ -27,7 +29,7 @@ public final class GameBoard extends JPanel implements ActionListener {
     
     boolean inGame = false;
     
-    final Timer timer = new Timer(150, this);
+    
 
     public GameBoard() {
         TextureLoader.loadTextures();
@@ -50,7 +52,6 @@ public final class GameBoard extends JPanel implements ActionListener {
     protected void initiateGame() {
         ID = 0;
         inGame = false;
-        timer.stop();
         
         listOfMovables = new ArrayList<>();
         listOfRenderables = new ArrayList<>();
@@ -63,11 +64,11 @@ public final class GameBoard extends JPanel implements ActionListener {
     
     protected void initiateGame(int snakes, int food, int frogs) {
         ID = 0;
-        ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE));
+        ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE, Color.PINK));
         inintializeEntities(1,snakes-1,values,food,frogs);
 
         inGame = true;
-        timer.start();
+
     }
 
     @Override
@@ -86,6 +87,15 @@ public final class GameBoard extends JPanel implements ActionListener {
     }
     private void incrementID(){
         ID++;
+    }
+    
+    public TreeMap<Integer,Integer> getScores(){
+        TreeMap<Integer, Integer> scores = new TreeMap<>();
+        for(Playable entity : listOfPlayables){
+            scores.put(((Entity) entity).getID(), ((Snake) entity).getScore());
+        }
+        return scores;
+//         ArrayList<Playable> listOfPlayables
     }
     
     public void addEntity(Entity entity){
@@ -135,13 +145,13 @@ public final class GameBoard extends JPanel implements ActionListener {
         }
         for (int i = 0; i < snakes; i++){
             Entity entity = new PlayableSnake(1,40,ID);
-            entity.setColor(color.get(i%color.size()));
+            entity.setColor(color.get(ID%color.size()));
             addEntity(entity);
         }
         
         for (int i = 0; i < aiSnakes; i++){
-            Entity entity = new AISnake(i * 5,40,5);
-            entity.setColor(color.get(i%color.size()));
+            Entity entity = new AISnake(i * 5,40,ID);
+            entity.setColor(color.get(ID%color.size()));
             addEntity(entity);
         }
         

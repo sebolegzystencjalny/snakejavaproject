@@ -35,7 +35,7 @@ public class SnakeGame extends JFrame implements ActionListener {
 
         add(mainView, BorderLayout.CENTER);
         mainView.add(menuView);
-        setPreferredSize(new Dimension(1000, 600));
+        setPreferredSize(new Dimension(980, 550));
         setFocusable(true);
         
         setVisible(true);

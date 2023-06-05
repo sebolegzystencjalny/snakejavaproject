@@ -7,6 +7,7 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
     private LinkedList<Entity> body;
     private int size;
     private Texture texture;
+    private int score = 0;
     
     public Snake(int x, int y, int _ID) {
         super(x, y, Direction.UP);
@@ -31,12 +32,16 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
     
     public void increaseSize() {
         size++;
+        score++;
     }
 
     public int getSize() {
         return size;
     }
-    
+
+    public int getScore() {
+        return score;
+    }
     
     @Override
     public void move() {

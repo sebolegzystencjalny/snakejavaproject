@@ -1,6 +1,15 @@
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.SwingUtilities;
 
 /*
@@ -12,8 +21,12 @@ import javax.swing.SwingUtilities;
  *
  * @author sebu
  */
-public class GameView extends javax.swing.JPanel {
+public class GameView extends javax.swing.JPanel implements ActionListener{
     private GameBoard gameBoard;
+    private TreeMap<Integer, Integer> scores;
+     DefaultListModel<String> listModel;
+    final Timer timer = new Timer(150, this);
+    
     /**
      * Creates new form GameView
      */
@@ -21,6 +34,9 @@ public class GameView extends javax.swing.JPanel {
         initComponents();
         gameBoard = new GameBoard();
         jPanel1.add(gameBoard);
+        listModel = new DefaultListModel<>();
+        listModel.addElement(null);
+        jList1.setModel(listModel);
     }
     
     public void addInput(int key){
@@ -29,10 +45,12 @@ public class GameView extends javax.swing.JPanel {
     
     public void initialize(){
         gameBoard.initiateGame();
+        timer.stop();
     }
     
     public void initialize(int snakes,int food,int froogs){
         gameBoard.initiateGame(snakes, food, froogs);
+        timer.start();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,10 +64,8 @@ public class GameView extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jList1 = new javax.swing.JList<>();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -64,52 +80,26 @@ public class GameView extends javax.swing.JPanel {
         gridBagConstraints.gridheight = 5;
         add(jPanel1, gridBagConstraints);
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel2.setMinimumSize(new java.awt.Dimension(150, 500));
+        jPanel2.setName(""); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 500));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("return to menu");
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, java.awt.BorderLayout.CENTER);
+        jPanel2.add(jButton1, java.awt.BorderLayout.SOUTH);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        jPanel2.add(jPanel3, gridBagConstraints);
-
-        jLabel1.setText("jLabel1");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        jPanel2.add(jPanel4, gridBagConstraints);
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jPanel2.add(jList1, java.awt.BorderLayout.CENTER);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridheight = 5;
@@ -121,14 +111,26 @@ public class GameView extends javax.swing.JPanel {
 //        System.out.print("ijgiugigv");
         topFrame.returnToMenu();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        gameBoard.actionPerformed(e);
+        scores = gameBoard.getScores();
+        List<Map.Entry<Integer, Integer>> sortedEntries = new ArrayList<>(scores.entrySet());
+        Collections.sort(sortedEntries, Collections.reverseOrder(Map.Entry.comparingByValue()));
+        String[] entryArray = sortedEntries.stream()
+                .map(entry -> entry.getKey() + " snake: " + entry.getValue())
+                .toArray(String[]::new);
+  
+        listModel.clear();
+        for (String item : entryArray) {
+            listModel.addElement(item);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
