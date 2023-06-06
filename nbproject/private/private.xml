@@ -3,13 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/PlayableSnake.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/SnakeGame.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/GameBoard.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/GameState.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/MenuView.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/GameView.java</file>
-            <file>file:/home/sebu/IdeaProjects/snakejavaproject/src/Snake.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Snake.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/SnakeGame.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameBoard.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MenuView.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Movable.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Collidable.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MovingEntity.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/BFSAlgorithm.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Entity.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/MainApp.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/GameView.java</file>
+            <file>file:/C:/Users/sdzol/Documents/NetBeansProjects/snakejavaproject/src/Frog.java</file>
         </group>
     </open-files>
 </project-private>

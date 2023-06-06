@@ -47,7 +47,7 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
     } 
 
     @Override
-    public void think(GameState gameState) {
+    public void think() {
         Rotation[] rotations = Rotation.values();
 //        Random random = new Random();
 //        int randomIndex = random.nextInt(3);
@@ -71,5 +71,6 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
             }
         }
     }
+
 }
 //nie dziwic sie 

@@ -18,19 +18,19 @@ public class AISnake extends Snake implements Movable {
     }
     
     @Override
-    public void think(GameState _gameState){
-        map = _gameState.getPreparedMap(pos);
+    public void think(){
+        map = gameState.getPreparedMap(pos);
         
         if(!patchClear() || !targetExist() || Patch.isEmpty()){
             target = findTarget();
             Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()));
 //            Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()), target);
             if(Patch.isEmpty()){
-                survive(_gameState);
+                survive(gameState);
             }
         }
         followPatch();
-        survive(_gameState);
+        survive(gameState);
     }
 
     private void survive(GameState gameState) {

@@ -31,7 +31,7 @@ public class PlayableSnake extends Snake implements Movable{
     }
     
     @Override
-    public void think(GameState gameState) {
+    public void think() {
         ArrayList<Integer> input = gameState.getInputed();
         for (int key : input){
             if(key == keyLeft){

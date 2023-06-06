@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.SwingUtilities;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -113,20 +119,57 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
     }//GEN-LAST:event_jButton1ActionPerformed
     @Override
     public void actionPerformed(ActionEvent e) {
-        gameBoard.actionPerformed(e);
         scores = gameBoard.getScores();
+        gameBoard.actionPerformed(e);  
+        int bestScore = 0;
         List<Map.Entry<Integer, Integer>> sortedEntries = new ArrayList<>(scores.entrySet());
         Collections.sort(sortedEntries, Collections.reverseOrder(Map.Entry.comparingByValue()));
-        String[] entryArray = sortedEntries.stream()
-                .map(entry -> entry.getKey() + " snake: " + entry.getValue())
-                .toArray(String[]::new);
-  
-        listModel.clear();
-        for (String item : entryArray) {
-            listModel.addElement(item);
+        if(gameBoard.isGame()){
+            Map.Entry<Integer, Integer> highestEntry = sortedEntries.get(0);
+            int highestScore = highestEntry.getValue();
+            saveBestScore(highestScore);
+            String[] entryArray = sortedEntries.stream()
+                    .map(entry -> entry.getKey() + " snake: " + entry.getValue())
+                    .toArray(String[]::new);
+
+            listModel.clear();
+            for (String item : entryArray) {
+                listModel.addElement(item);
+            }
         }
     }
+    
+    public static void saveBestScore(int newScore) {
+        String FILE_PATH = "best_score.txt";
+        try {
+            File file = new File(FILE_PATH);
 
+            // Create the file if it doesn't exist
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Read the current best score from the file
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            int bestScore = 0;
+            if (line != null) {
+                bestScore = Integer.parseInt(line);
+            }
+            reader.close();
+
+            // Compare with the new score and save it if it's better
+            if (newScore > bestScore) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(Integer.toString(newScore));
+                writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;

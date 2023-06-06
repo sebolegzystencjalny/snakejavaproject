@@ -57,6 +57,7 @@ public class SnakeGame extends JFrame implements ActionListener {
         mainView.remove(gameView);
         gameView.setFocusable(false);
         menuView.setFocusable(true);
+        ((MenuView)menuView).setScoreLabel();
         ((GameView) gameView).initialize();
         mainView.add(menuView);
         pack();

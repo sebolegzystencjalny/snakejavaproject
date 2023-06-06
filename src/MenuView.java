@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -20,6 +23,7 @@ public class MenuView extends javax.swing.JPanel {
      */
     public MenuView() {
         initComponents();
+        setScoreLabel();
     }
 
     /**
@@ -52,6 +56,9 @@ public class MenuView extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         validInfo = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        scorelabel = new javax.swing.JLabel();
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -142,8 +149,17 @@ public class MenuView extends javax.swing.JPanel {
 
         jPanel7.add(jPanel5);
 
+        validInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         validInfo.setText("values: 1-9");
         jPanel7.add(validInfo);
+
+        jLabel4.setText("Best Score:");
+        jPanel11.add(jLabel4);
+
+        scorelabel.setText("jLabel2");
+        jPanel11.add(scorelabel);
+
+        jPanel7.add(jPanel11);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -178,7 +194,21 @@ public class MenuView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
+    public void setScoreLabel() {
+        final String FILE_PATH = "best_score.txt";
+        try {
+            // Read the current best score from the file
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line = reader.readLine();
+            if (line != null) {
+                String bestScore = line;
+                scorelabel.setText(bestScore);
+            }
+            reader.close();
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
     private void snakesinputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snakesinputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_snakesinputActionPerformed
@@ -200,9 +230,11 @@ public class MenuView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -211,6 +243,7 @@ public class MenuView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private static javax.swing.JLabel scorelabel;
     private javax.swing.JTextField snakesinput;
     private javax.swing.JLabel validInfo;
     // End of variables declaration//GEN-END:variables

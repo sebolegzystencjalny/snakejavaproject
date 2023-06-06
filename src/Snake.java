@@ -89,9 +89,9 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         }
         return localization;
     }
-
+    
     @Override
-    public void think(GameState gameState) {
+    public void think() {
         Rotate(Rotation.FORWARD);
     }
 }

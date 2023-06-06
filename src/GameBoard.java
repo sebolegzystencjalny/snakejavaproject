@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +20,7 @@ public final class GameBoard extends JPanel implements ActionListener {
     
     GameState gameState = new GameState(80,50);
     
-    ArrayList<Movable> listOfMovables = new ArrayList<>();
+    ArrayList<MovingEntity> listOfMovables = new ArrayList<>();
     ArrayList<Renderable> listOfRenderables = new ArrayList<>();
     ArrayList<Collidable> listOfCollidables = new ArrayList<>();
     
@@ -48,7 +49,9 @@ public final class GameBoard extends JPanel implements ActionListener {
         });
         initiateGame();
     }
-
+    public boolean isGame(){
+        return inGame;
+    }
     protected void initiateGame() {
         ID = 0;
         inGame = false;
@@ -101,8 +104,9 @@ public final class GameBoard extends JPanel implements ActionListener {
     public void addEntity(Entity entity){
         observe();
         entity.setPos(gameState.randomFreeSpace());
-        if (entity instanceof Movable) {
-            listOfMovables.add((Movable)entity);
+        if (entity instanceof MovingEntity) {
+            listOfMovables.add((MovingEntity)entity);
+            ((MovingEntity)entity).setGameState(gameState);
         }
         if (entity instanceof Playable) {
             listOfPlayables.add((Playable)entity); 
@@ -167,10 +171,21 @@ public final class GameBoard extends JPanel implements ActionListener {
     }
     
     protected void move() {
-        for (Movable movable : listOfMovables) {
-            observe();
-            movable.think(gameState);
-            movable.move();
+        List<Thread> threads = new ArrayList<>();
+
+        for (MovingEntity movable : listOfMovables) {
+            Thread thread = new Thread(movable);
+            thread.start();
+            threads.add(thread);
+        }
+
+        // Oczekiwanie na zakończenie wszystkich wątków
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
         gameState.clearInput();
     }
