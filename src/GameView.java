@@ -20,8 +20,7 @@ import java.io.IOException;
  */
 
 /**
- *
- * @author sebu
+ * Klasa reprezentująca widok gry.
  */
 public class GameView extends javax.swing.JPanel implements ActionListener{
     private GameBoard gameBoard;
@@ -65,8 +64,8 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
      * @param food   Liczba jedzenia.
      * @param frogs  Liczba żab.
      */
-    public void initialize(int snakes,int food,int froogs){
-        gameBoard.initiateGame(snakes, food, froogs);
+    public void initialize(int snakes,int food,int frogs){
+        gameBoard.initiateGame(snakes, food, frogs);
         timer.start();
     }
     /**

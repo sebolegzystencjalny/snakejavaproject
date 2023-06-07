@@ -13,8 +13,7 @@ import javax.swing.UIManager;
  */
 
 /**
- *
- * @author sebu
+ * Klasa reprezentująca menu gry.
  */
 public class MenuView extends javax.swing.JPanel {
     private boolean valid = false;

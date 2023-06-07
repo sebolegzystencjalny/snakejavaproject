@@ -1,3 +1,6 @@
+/**
+ * Klasa do obsługi konkretnego formatu tekstur
+ */
 public class TextureLoader {
     private static Texture[][] loadedHeadTextures = new Texture[3][3];
     /**

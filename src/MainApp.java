@@ -1,3 +1,6 @@
+/**
+ * Główna klasa aplikacji
+ */
 public class MainApp {
     public static void main(String args[]) {    
         try {
