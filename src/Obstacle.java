@@ -16,7 +16,7 @@ public class Obstacle extends Entity implements Renderable, Collidable {
 
     private void setValues(){
         color = Color.WHITE;
-        value = -100;
+        value = -10;
     }
     /**
      * Metoda renderująca przeszkodę na ekranie.

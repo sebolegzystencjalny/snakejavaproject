@@ -69,7 +69,6 @@ public abstract class MovingEntity extends Entity implements Runnable{
         synchronized (mutex) {
             think();
             move();
-//            gameState.observe();
         }
         try {
             Thread.sleep(10);

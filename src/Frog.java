@@ -59,7 +59,9 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
     @Override
     public void move() {
         if(!freezed){
+            gameState.neutralize(pos);
             pos.translate(direction.getPoint());
+            gameState.setTile(pos,value);
         }
     } 
 

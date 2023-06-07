@@ -67,9 +67,12 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
     
     @Override
     public void move() {
+        
         body.add(new Entity(new Point(getX(),getY()), color, ID, value));//color id value
         pos.translate(direction.getPoint());
+        gameState.setTile(pos,value);
         if(body.size()>size){
+            gameState.neutralize(body.getFirst().getPos());
             body.removeFirst();
         }
     }

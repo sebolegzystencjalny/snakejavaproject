@@ -38,12 +38,12 @@ public class AISnake extends Snake implements Movable {
             target = findTarget();
             Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()));
 //            Patch = (LinkedList) BFSAlgorithm.findPath(map, new Point(getPos()), target);
-            if(Patch.isEmpty()){
-                survive(gameState);
-            }
+            survive();
+
         }
-        followPatch();
-        survive(gameState);
+          
+            followPatch();
+            survive();
     }
     /**
      * 
@@ -51,22 +51,19 @@ public class AISnake extends Snake implements Movable {
      *
      * @param gameState Obiekt reprezentujący stan gry.
      */
-    private void survive(GameState gameState) {
+    private void survive() {
         Rotation[] rotations = Rotation.values();
         Rotation rotation = rotations[0];
         Direction nextDirection = direction;
         Point nextPosition = new Point(pos).translate(nextDirection.getPoint());
         int i = 2;
-        while(0 > gameState.getValue(nextPosition)){
+        while(0 > gameState.getValue(nextPosition)&& i > 0){
+//            System.out.print("HELP");
             rotation = rotations[i];
             nextDirection = direction.rotate(rotation);
             nextPosition = new Point(pos).translate(nextDirection.getPoint());
             direction = direction.rotate(Rotation.LEFT);
-//            System.out.printf("%d, %d , %d\n",i, direction.getPoint().getX(), direction.getPoint().getY());
             i--;
-            if(i<0){
-                break;
-            }
         }
     }
     

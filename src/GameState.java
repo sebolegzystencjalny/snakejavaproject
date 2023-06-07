@@ -130,13 +130,6 @@ class GameState {
         return input;
     }
     
-    public void observe() {
-        ereaseMap();
-        for (Collidable collidable : listOfCollidables) {
-            locateEntities(collidable.locate(),((Entity)collidable).getValue());
-        }
-    }
-    
     /**
      * Dodaje wciśnięty klawisz do listy.
      *
@@ -151,5 +144,15 @@ class GameState {
      */
     void clearInput() {
         input.clear();
+    }
+
+    void setTile(Point pos, int value) {
+        if(inRange(pos.getX(),pos.getY()))  
+            map[pos.getX()][pos.getY()] = value;
+    }
+
+    void neutralize(Point pos) {
+        if(inRange(pos.getX(),pos.getY()))  
+            map[pos.getX()][pos.getY()] = 0;    
     }
 }
