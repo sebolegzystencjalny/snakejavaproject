@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="SnakeGame" package="" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="snakes" type="int" visibility="private"/>
+        <Field name="food" type="int" visibility="private"/>
+        <Field name="frogs" type="int" visibility="private"/>
+        <Field name="RestartView" type="JPanel" visibility="private"/>
+        <Field name="gameView" type="JPanel" visibility="private"/>
+        <Field name="menuView" type="JPanel" visibility="private"/>
+        <Field name="mainView" type="JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="public">
+          <Argument type="int" name="_snakes"/>
+          <Argument type="int" name="_food"/>
+          <Argument type="int" name="_frogs"/>
+        </Method>
+        <Method name="returnToMenu" returnType="void" visibility="public"/>
+        <Method name="InitializeGame" returnType="void" visibility="public"/>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="actionEvent"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MainApp" package="" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MenuView" package="" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="valid" type="boolean" visibility="private"/>
+        <Field name="foodinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="frogsinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel11" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel10" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel11" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel4" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel6" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel7" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel8" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel9" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="scorelabel" type="javax.swing.JLabel" visibility="private" isStatic="true"/>
+        <Field name="snakesinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="validInfo" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="setScoreLabel" returnType="void" visibility="public"/>
+        <Method name="snakesinputActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="frogsinputActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GameView" package="" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="gameBoard" type="GameBoard" visibility="private"/>
+        <Field name="scores" type="TreeMap&lt;Integer, Integer&gt;" visibility="private"/>
+        <Field name="listModel" type="DefaultListModel&lt;String&gt;" visibility="package"/>
+        <Field name="timer" type="Timer" visibility="package" isFinal="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jList1" type="javax.swing.JList&lt;String&gt;" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="initialize" returnType="void" visibility="public"/>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="e"/>
+        </Method>
+        <Method name="saveBestScore" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="newScore"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GameState" package="" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="listOfCollidables" type="ArrayList&lt;Collidable&gt;" visibility="package"/>
+        <Field name="input" type="ArrayList&lt;Integer&gt;" visibility="package"/>
+        <Field name="map" type="int[][]" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="int" name="_x"/>
+          <Argument type="int" name="_y"/>
+          <Argument type="ArrayList&lt;Collidable&gt;" name="_listOfCollidables"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getMap" returnType="int[][]" visibility="public"/>
+        <Method name="getPreparedMap" returnType="int[][]" visibility="public">
+          <Argument type="Point" name="pos"/>
+        </Method>
+        <Method name="getValue" returnType="int" visibility="public">
+          <Argument type="Point" name="point"/>
+        </Method>
+        <Method name="getValue" returnType="int" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="locateEntities" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Point&gt;" name="pos"/>
+          <Argument type="int" name="value"/>
+        </Method>
+        <Method name="ereaseMap" returnType="void" visibility="public"/>
+        <Method name="inRange" returnType="boolean" visibility="private">
+          <Argument type="int" name="_x"/>
+          <Argument type="int" name="_y"/>
+        </Method>
+        <Method name="randomFreeSpace" returnType="Point" visibility="public"/>
+        <Method name="getInputed" returnType="ArrayList" visibility="public"/>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="clearInput" returnType="void" visibility="package"/>
+        <Method name="setTile" returnType="void" visibility="package">
+          <Argument type="Point" name="pos"/>
+          <Argument type="int" name="value"/>
+        </Method>
+        <Method name="neutralize" returnType="void" visibility="package">
+          <Argument type="Point" name="pos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GameBoard" package="" visibility="public" isFinal="true" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="BOARD_WIDTH" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="BOARD_HEIGHT" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="ID" type="int" visibility="private"/>
+        <Field name="font" type="Font" visibility="package" isFinal="true"/>
+        <Field name="mutex" type="Object" visibility="private"/>
+        <Field name="listOfMovables" type="ArrayList&lt;MovingEntity&gt;" visibility="package"/>
+        <Field name="listOfRenderables" type="ArrayList&lt;Renderable&gt;" visibility="package"/>
+        <Field name="listOfCollidables" type="ArrayList&lt;Collidable&gt;" visibility="package"/>
+        <Field name="gameState" type="GameState" visibility="package"/>
+        <Field name="listOfObstacles" type="ArrayList&lt;Obstacle&gt;" visibility="package"/>
+        <Field name="listOfPlayables" type="ArrayList&lt;Playable&gt;" visibility="package"/>
+        <Field name="listOfEdibles" type="ArrayList&lt;Edible&gt;" visibility="package"/>
+        <Field name="inGame" type="boolean" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="isGame" returnType="boolean" visibility="public"/>
+        <Method name="initiateGame" returnType="void" visibility="protected"/>
+        <Method name="initiateGame" returnType="void" visibility="protected">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="paintComponent" returnType="void" visibility="protected">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="incrementID" returnType="void" visibility="private"/>
+        <Method name="getScores" returnType="TreeMap&lt;Integer, Integer&gt;" visibility="public"/>
+        <Method name="addEntity" returnType="void" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="removeEntity" returnType="void" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="inintializeEntities" returnType="void" visibility="public">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="aiSnakes"/>
+          <Argument type="ArrayList&lt;Color&gt;" name="color"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="move" returnType="void" visibility="protected"/>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="collisionTest" returnType="void" visibility="protected"/>
+        <Method name="observe" returnType="void" visibility="private"/>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="e"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="gameBoard" source="GameView" target="GameBoard" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gameState" source="GameBoard" target="GameState" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

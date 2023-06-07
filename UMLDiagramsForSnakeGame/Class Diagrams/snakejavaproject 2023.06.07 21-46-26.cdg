@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="snakejavaproject">
+  <ClassDiagramComponents>
+    <Class name="AISnake" package="" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="Patch" type="LinkedList&lt;Point&gt;" visibility="private"/>
+        <Field name="map" type="int[][]" visibility="private"/>
+        <Field name="target" type="Point" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+          <Argument type="Direction" name="_direction"/>
+          <Argument type="int" name="_size"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="think" returnType="void" visibility="public"/>
+        <Method name="survive" returnType="void" visibility="private"/>
+        <Method name="patchClear" returnType="boolean" visibility="private"/>
+        <Method name="targetExist" returnType="boolean" visibility="private"/>
+        <Method name="findTarget" returnType="Point" visibility="private"/>
+        <Method name="followPatch" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="BFSAlgorithm" package="" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="findPath" returnType="LinkedList&lt;Point&gt;" visibility="public" isStatic="true">
+          <Argument type="int[][]" name="map"/>
+          <Argument type="Point" name="start"/>
+          <Argument type="Point" name="end"/>
+        </Method>
+        <Method name="findPath" returnType="LinkedList&lt;Point&gt;" visibility="public" isStatic="true">
+          <Argument type="int[][]" name="map"/>
+          <Argument type="Point" name="start"/>
+        </Method>
+        <Method name="isValidMove" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="int[][]" name="map"/>
+          <Argument type="boolean[][]" name="visited"/>
+          <Argument type="int" name="row"/>
+          <Argument type="int" name="col"/>
+        </Method>
+        <Method name="constructPath" returnType="LinkedList&lt;Point&gt;" visibility="private" isStatic="true">
+          <Argument type="Point[][]" name="parent"/>
+          <Argument type="Point" name="start"/>
+          <Argument type="Point" name="end"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Entity" package="" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="pos" type="Point" visibility="protected"/>
+        <Field name="color" type="Color" visibility="protected"/>
+        <Field name="ID" type="int" visibility="protected"/>
+        <Field name="value" type="int" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="_X"/>
+          <Argument type="int" name="_Y"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="_X"/>
+          <Argument type="int" name="_Y"/>
+          <Argument type="Color" name="_color"/>
+          <Argument type="int" name="_ID"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="_X"/>
+          <Argument type="int" name="_Y"/>
+          <Argument type="Color" name="_color"/>
+          <Argument type="int" name="_ID"/>
+          <Argument type="int" name="_value"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Point" name="point"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Point" name="point"/>
+          <Argument type="Color" name="_color"/>
+          <Argument type="int" name="_ID"/>
+          <Argument type="int" name="_value"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setValue" returnType="void" visibility="public">
+          <Argument type="int" name="_value"/>
+        </Method>
+        <Method name="getValue" returnType="int" visibility="public"/>
+        <Method name="setID" returnType="void" visibility="public">
+          <Argument type="int" name="_ID"/>
+        </Method>
+        <Method name="getID" returnType="int" visibility="public"/>
+        <Method name="setColor" returnType="void" visibility="public">
+          <Argument type="Color" name="_color"/>
+        </Method>
+        <Method name="getColor" returnType="Color" visibility="public"/>
+        <Method name="getX" returnType="int" visibility="public"/>
+        <Method name="getY" returnType="int" visibility="public"/>
+        <Method name="getPos" returnType="Point" visibility="public"/>
+        <Method name="setPos" returnType="void" visibility="public">
+          <Argument type="Point" name="_pos"/>
+        </Method>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="_X"/>
+        </Method>
+        <Method name="setY" returnType="void" visibility="public">
+          <Argument type="int" name="_Y"/>
+        </Method>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="locate" returnType="ArrayList&lt;Point&gt;" visibility="public"/>
+        <Method name="collidesWith" returnType="boolean" visibility="public">
+          <Argument type="Entity" name="otherObject"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Food" package="" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="private"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="collidesWith" returnType="boolean" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Frog" package="" visibility="public" xPosition="1939.0" yPosition="106.0">
+      <Fields>
+        <Field name="freezed" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="Direction" name="_direction"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="private"/>
+        <Method name="unfreeze" returnType="void" visibility="public"/>
+        <Method name="freeze" returnType="void" visibility="public"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="collidesWith" returnType="boolean" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="move" returnType="void" visibility="public"/>
+        <Method name="think" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GameBoard" package="" visibility="public" isFinal="true" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="BOARD_WIDTH" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="BOARD_HEIGHT" type="int" visibility="package" isStatic="true" isFinal="true"/>
+        <Field name="ID" type="int" visibility="private"/>
+        <Field name="font" type="Font" visibility="package" isFinal="true"/>
+        <Field name="mutex" type="Object" visibility="private"/>
+        <Field name="listOfMovables" type="ArrayList&lt;MovingEntity&gt;" visibility="package"/>
+        <Field name="listOfRenderables" type="ArrayList&lt;Renderable&gt;" visibility="package"/>
+        <Field name="listOfCollidables" type="ArrayList&lt;Collidable&gt;" visibility="package"/>
+        <Field name="gameState" type="GameState" visibility="package"/>
+        <Field name="listOfObstacles" type="ArrayList&lt;Obstacle&gt;" visibility="package"/>
+        <Field name="listOfPlayables" type="ArrayList&lt;Playable&gt;" visibility="package"/>
+        <Field name="listOfEdibles" type="ArrayList&lt;Edible&gt;" visibility="package"/>
+        <Field name="inGame" type="boolean" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="isGame" returnType="boolean" visibility="public"/>
+        <Method name="initiateGame" returnType="void" visibility="protected"/>
+        <Method name="initiateGame" returnType="void" visibility="protected">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="paintComponent" returnType="void" visibility="protected">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="incrementID" returnType="void" visibility="private"/>
+        <Method name="getScores" returnType="TreeMap&lt;Integer, Integer&gt;" visibility="public"/>
+        <Method name="addEntity" returnType="void" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="removeEntity" returnType="void" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="inintializeEntities" returnType="void" visibility="public">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="aiSnakes"/>
+          <Argument type="ArrayList&lt;Color&gt;" name="color"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="move" returnType="void" visibility="protected"/>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="collisionTest" returnType="void" visibility="protected"/>
+        <Method name="observe" returnType="void" visibility="private"/>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="e"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GameState" package="" visibility="public" xPosition="446.0" yPosition="225.0">
+      <Fields>
+        <Field name="listOfCollidables" type="ArrayList&lt;Collidable&gt;" visibility="package"/>
+        <Field name="input" type="ArrayList&lt;Integer&gt;" visibility="package"/>
+        <Field name="map" type="int[][]" visibility="private"/>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="package"/>
+        <Constructor visibility="package">
+          <Argument type="int" name="_x"/>
+          <Argument type="int" name="_y"/>
+          <Argument type="ArrayList&lt;Collidable&gt;" name="_listOfCollidables"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getMap" returnType="int[][]" visibility="public"/>
+        <Method name="getPreparedMap" returnType="int[][]" visibility="public">
+          <Argument type="Point" name="pos"/>
+        </Method>
+        <Method name="getValue" returnType="int" visibility="public">
+          <Argument type="Point" name="point"/>
+        </Method>
+        <Method name="getValue" returnType="int" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="locateEntities" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Point&gt;" name="pos"/>
+          <Argument type="int" name="value"/>
+        </Method>
+        <Method name="ereaseMap" returnType="void" visibility="public"/>
+        <Method name="inRange" returnType="boolean" visibility="private">
+          <Argument type="int" name="_x"/>
+          <Argument type="int" name="_y"/>
+        </Method>
+        <Method name="randomFreeSpace" returnType="Point" visibility="public"/>
+        <Method name="getInputed" returnType="ArrayList" visibility="public"/>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="clearInput" returnType="void" visibility="package"/>
+        <Method name="setTile" returnType="void" visibility="package">
+          <Argument type="Point" name="pos"/>
+          <Argument type="int" name="value"/>
+        </Method>
+        <Method name="neutralize" returnType="void" visibility="package">
+          <Argument type="Point" name="pos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GameView" package="" visibility="public" xPosition="872.0" yPosition="534.0">
+      <Fields>
+        <Field name="gameBoard" type="GameBoard" visibility="private"/>
+        <Field name="scores" type="TreeMap&lt;Integer, Integer&gt;" visibility="private"/>
+        <Field name="listModel" type="DefaultListModel&lt;String&gt;" visibility="package"/>
+        <Field name="timer" type="Timer" visibility="package" isFinal="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jList1" type="javax.swing.JList&lt;String&gt;" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="addInput" returnType="void" visibility="public">
+          <Argument type="int" name="key"/>
+        </Method>
+        <Method name="initialize" returnType="void" visibility="public"/>
+        <Method name="initialize" returnType="void" visibility="public">
+          <Argument type="int" name="snakes"/>
+          <Argument type="int" name="food"/>
+          <Argument type="int" name="frogs"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="e"/>
+        </Method>
+        <Method name="saveBestScore" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="newScore"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MainApp" package="" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MenuView" package="" visibility="public" xPosition="920.0" yPosition="765.0">
+      <Fields>
+        <Field name="valid" type="boolean" visibility="private"/>
+        <Field name="foodinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="frogsinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel11" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel10" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel11" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel4" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel6" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel7" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel8" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel9" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="scorelabel" type="javax.swing.JLabel" visibility="private" isStatic="true"/>
+        <Field name="snakesinput" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="validInfo" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="setScoreLabel" returnType="void" visibility="public"/>
+        <Method name="snakesinputActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="frogsinputActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MovingEntity" package="" visibility="public" isAbstract="true" xPosition="1862.0" yPosition="578.0">
+      <Fields>
+        <Field name="direction" type="Direction" visibility="protected"/>
+        <Field name="gameState" type="GameState" visibility="protected"/>
+        <Field name="mutex" type="Object" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="Direction" name="_direction"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setGameState" returnType="void" visibility="public">
+          <Argument type="GameState" name="_gameState"/>
+        </Method>
+        <Method name="setMutex" returnType="void" visibility="public">
+          <Argument type="Object" name="_mutex"/>
+        </Method>
+        <Method name="getDirection" returnType="Direction" visibility="public"/>
+        <Method name="Rotate" returnType="void" visibility="public">
+          <Argument type="Rotation" name="rotation"/>
+        </Method>
+        <Method name="run" returnType="void" visibility="public"/>
+        <Method name="move" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="think" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Class name="Obstacle" package="" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="private"/>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="collidesWith" returnType="boolean" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ObstacleGenerator" package="" visibility="public" xPosition="886.0" yPosition="1000.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="generateHollowRectangle" returnType="ArrayList&lt;Obstacle&gt;" visibility="public" isStatic="true">
+          <Argument type="int" name="width"/>
+          <Argument type="int" name="height"/>
+          <Argument type="int" name="startX"/>
+          <Argument type="int" name="startY"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PlayableSnake" package="" visibility="public" xPosition="666.0" yPosition="1316.0">
+      <Fields>
+        <Field name="keyLeft" type="int" visibility="private"/>
+        <Field name="keyRight" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+          <Argument type="Direction" name="_direction"/>
+          <Argument type="int" name="_size"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setKeyLeft" returnType="void" visibility="public">
+          <Argument type="int" name="newKey"/>
+        </Method>
+        <Method name="setKeyRight" returnType="void" visibility="public">
+          <Argument type="int" name="newKey"/>
+        </Method>
+        <Method name="getKeyLeft" returnType="int" visibility="public"/>
+        <Method name="getKeyRight" returnType="int" visibility="public"/>
+        <Method name="think" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Point" package="" visibility="public" xPosition="1292.0" yPosition="1360.0">
+      <Fields>
+        <Field name="x" type="int" visibility="private"/>
+        <Field name="y" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Point" name="orginalPoint"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getX" returnType="int" visibility="public"/>
+        <Method name="getY" returnType="int" visibility="public"/>
+        <Method name="setX" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+        </Method>
+        <Method name="setY" returnType="void" visibility="public">
+          <Argument type="int" name="y"/>
+        </Method>
+        <Method name="translate" returnType="Point" visibility="public">
+          <Argument type="int" name="dx"/>
+          <Argument type="int" name="dy"/>
+        </Method>
+        <Method name="translate" returnType="Point" visibility="public">
+          <Argument type="Point" name="point"/>
+        </Method>
+        <Method name="equals" returnType="boolean" visibility="public">
+          <Argument type="Point" name="point"/>
+        </Method>
+        <Method name="getDirection" returnType="Direction" visibility="public">
+          <Argument type="Point" name="targetPoint"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Snake" package="" visibility="public" xPosition="1708.0" yPosition="975.0">
+      <Fields>
+        <Field name="body" type="LinkedList&lt;Entity&gt;" visibility="private"/>
+        <Field name="size" type="int" visibility="private"/>
+        <Field name="texture" type="Texture" visibility="private"/>
+        <Field name="score" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="_ID"/>
+          <Argument type="Direction" name="_direction"/>
+          <Argument type="int" name="_size"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="private"/>
+        <Method name="increaseSize" returnType="void" visibility="public"/>
+        <Method name="getSize" returnType="int" visibility="public"/>
+        <Method name="getScore" returnType="int" visibility="public"/>
+        <Method name="move" returnType="void" visibility="public"/>
+        <Method name="collidesWith" returnType="boolean" visibility="public">
+          <Argument type="Entity" name="entity"/>
+        </Method>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="java.awt.Graphics" name="g"/>
+        </Method>
+        <Method name="locate" returnType="ArrayList&lt;Point&gt;" visibility="public"/>
+        <Method name="think" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="SnakeGame" package="" visibility="public" xPosition="2058.0" yPosition="837.0">
+      <Fields>
+        <Field name="snakes" type="int" visibility="private"/>
+        <Field name="food" type="int" visibility="private"/>
+        <Field name="frogs" type="int" visibility="private"/>
+        <Field name="RestartView" type="JPanel" visibility="private"/>
+        <Field name="gameView" type="JPanel" visibility="private"/>
+        <Field name="menuView" type="JPanel" visibility="private"/>
+        <Field name="mainView" type="JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="setValues" returnType="void" visibility="public">
+          <Argument type="int" name="_snakes"/>
+          <Argument type="int" name="_food"/>
+          <Argument type="int" name="_frogs"/>
+        </Method>
+        <Method name="returnToMenu" returnType="void" visibility="public"/>
+        <Method name="InitializeGame" returnType="void" visibility="public"/>
+        <Method name="actionPerformed" returnType="void" visibility="public">
+          <Argument type="ActionEvent" name="actionEvent"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Texture" package="" visibility="public" xPosition="20.0" yPosition="1220.0">
+      <Fields>
+        <Field name="image" type="char[][]" visibility="package"/>
+        <Field name="pos" type="Point" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="filePath"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="filePath"/>
+          <Argument type="Point" name="_pos"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="filePath"/>
+          <Argument type="Direction" name="_direction"/>
+          <Argument type="Point" name="_pos"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getColorFromPixel" returnType="Color" visibility="private">
+          <Argument type="char" name="pixel"/>
+        </Method>
+        <Method name="render" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="updateImage" returnType="void" visibility="public">
+          <Argument type="Point" name="_pos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TextureLoader" package="" visibility="public" xPosition="320.0" yPosition="1220.0">
+      <Fields>
+        <Field name="loadedHeadTextures" type="Texture[][]" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="loadTextures" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="getTexture" returnType="Texture" visibility="public" isStatic="true">
+          <Argument type="Direction" name="direction"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Collidable" package="" visibility="public" xPosition="414.0" yPosition="79.0">
+      <Methods>
+        <Method name="collidesWith" returnType="boolean" visibility="package">
+          <Argument type="Entity" name="otherObject"/>
+        </Method>
+        <Method name="locate" returnType="ArrayList&lt;Point&gt;" visibility="package"/>
+      </Methods>
+    </Interface>
+    <Interface name="Edible" package="" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Methods/>
+    </Interface>
+    <Interface name="Movable" package="" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Methods/>
+    </Interface>
+    <Interface name="Playable" package="" visibility="public" xPosition="632.0" yPosition="1148.0">
+      <Methods/>
+    </Interface>
+    <Interface name="Renderable" package="" visibility="public" xPosition="1395.0" yPosition="1205.0">
+      <Methods>
+        <Method name="render" returnType="void" visibility="package">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Enum name="Direction" package="" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Literals>
+        <Literal name="UP"/>
+        <Literal name="RIGHT"/>
+        <Literal name="DOWN"/>
+        <Literal name="LEFT"/>
+      </Literals>
+    </Enum>
+    <Enum name="Rotation" package="" visibility="public" xPosition="1520.0" yPosition="820.0">
+      <Literals>
+        <Literal name="RIGHT"/>
+        <Literal name="LEFT"/>
+        <Literal name="FORWARD"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="gameState" source="MovingEntity" target="GameState" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listOfObstacles" source="GameBoard" target="Obstacle" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Obstacle&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Food" target="Edible"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Entity" target="Collidable"/>
+    <HasRelation name="direction" source="MovingEntity" target="Direction" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="MovingEntity" target="Direction" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Obstacle" target="Collidable"/>
+    <HasRelation name="listOfPlayables" source="GameBoard" target="Playable" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Playable&gt;"/>
+    <UseRelation source="Snake" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GameState" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Food" target="Renderable"/>
+    <UseRelation source="MovingEntity" target="GameState" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="pos" source="Texture" target="Point" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="PlayableSnake" target="Movable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Frog" target="Collidable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="AISnake" target="Movable"/>
+    <UseRelation source="Point" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="MovingEntity" target="Rotation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="MovingEntity" target="Entity"/>
+    <HasRelation name="pos" source="Entity" target="Point" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Obstacle" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Entity" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Collidable" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Entity" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="ObstacleGenerator" target="Obstacle" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listOfCollidables" source="GameState" target="Collidable" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Collidable&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Snake" target="Movable"/>
+    <UseRelation source="TextureLoader" target="Texture" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Food" target="Collidable"/>
+    <UseRelation source="Collidable" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Snake" target="MovingEntity"/>
+    <UseRelation source="GameBoard" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Frog" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="BFSAlgorithm" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Snake" target="Playable"/>
+    <IsRelation name="is" source="Obstacle" target="Entity"/>
+    <IsRelation name="is" source="Frog" target="MovingEntity"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Obstacle" target="Renderable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Entity" target="Renderable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Frog" target="Edible"/>
+    <HasRelation name="gameBoard" source="GameView" target="GameBoard" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="AISnake" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Food" target="Entity"/>
+    <HasRelation name="Patch" source="AISnake" target="Point" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="LinkedList&lt;Point&gt;"/>
+    <HasRelation name="target" source="AISnake" target="Point" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gameState" source="GameBoard" target="GameState" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Texture" target="Renderable"/>
+    <HasRelation name="texture" source="Snake" target="Texture" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Frog" target="Movable"/>
+    <IsRelation name="is" source="AISnake" target="Snake"/>
+    <UseRelation source="Snake" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="PlayableSnake" target="Snake"/>
+    <HasRelation name="listOfRenderables" source="GameBoard" target="Renderable" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Renderable&gt;"/>
+    <HasRelation name="listOfMovables" source="GameBoard" target="MovingEntity" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;MovingEntity&gt;"/>
+    <UseRelation source="Texture" target="Point" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listOfCollidables" source="GameBoard" target="Collidable" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Collidable&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Snake" target="Renderable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Snake" target="Collidable"/>
+    <HasRelation name="listOfEdibles" source="GameBoard" target="Edible" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Edible&gt;"/>
+    <UseRelation source="Food" target="Entity" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="body" source="Snake" target="Entity" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="LinkedList&lt;Entity&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Frog" target="Renderable"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
