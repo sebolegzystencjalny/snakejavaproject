@@ -1,7 +1,16 @@
 import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Klasa generująca przeszkody w postaci prostokąta z otworem po środku.
+ */
 public class ObstacleGenerator {
+    /**
+     * Metoda generująca przeszkody w postaci prostokąta z otworem po środku.
+     * @param width szerokość prostokąta
+     * @param height wysokość prostokąta
+     * @param startX współrzędna x początku prostokąta
+     * @param startY współrzędna y początku prostokąta
+     * @return lista przeszkód w postaci prostokąta z otworem po środku
+     */
     public static ArrayList<Obstacle> generateHollowRectangle(int width, int height, int startX, int startY) {
         ArrayList<Obstacle> rectanglePoints = new ArrayList<>();
 

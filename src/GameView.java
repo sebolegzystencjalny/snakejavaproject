@@ -1,9 +1,5 @@
-
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +30,7 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
     final Timer timer = new Timer(150, this);
     
     /**
-     * Creates new form GameView
+     * Tworzy nowy obiekt GameView.
      */
     public GameView() {
         initComponents();
@@ -45,15 +41,30 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
         jList1.setModel(listModel);
     }
     
+    /**
+     * Dodaje wciśnięty klawisz do listy wciśniętych klawiszy.
+     *
+     * @param key Kod wciśniętego klawisza.
+     */
     public void addInput(int key){
         gameBoard.addInput(key);
     }
     
+    /**
+     * Inicjalizuje grę.
+     */
     public void initialize(){
         gameBoard.initiateGame();
         timer.stop();
     }
     
+    /**
+     * Inicjalizuje grę z określoną liczbą węży, jedzenia i żab.
+     *
+     * @param snakes Liczba węży.
+     * @param food   Liczba jedzenia.
+     * @param frogs  Liczba żab.
+     */
     public void initialize(int snakes,int food,int froogs){
         gameBoard.initiateGame(snakes, food, froogs);
         timer.start();
@@ -111,12 +122,20 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.gridheight = 5;
         add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Metoda wywoływana po naciśnięciu przycisku "return to menu".
+     *
+     * @param evt Obiekt zdarzenia akcji.
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         SnakeGame topFrame = (SnakeGame) SwingUtilities.getWindowAncestor(this);
-//        System.out.print("ijgiugigv");
         topFrame.returnToMenu();
     }//GEN-LAST:event_jButton1ActionPerformed
+     /**
+     * Metoda wywoływana przez timer w określonych odstępach czasowych.
+     *
+     * @param e Obiekt zdarzenia akcji.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         scores = gameBoard.getScores();
@@ -138,7 +157,11 @@ public class GameView extends javax.swing.JPanel implements ActionListener{
             }
         }
     }
-    
+    /**
+     * Zapisuje najlepszy wynik do pliku.
+     *
+     * @param newScore Nowy wynik do zapisania.
+     */
     public static void saveBestScore(int newScore) {
         String FILE_PATH = "best_score.txt";
         try {

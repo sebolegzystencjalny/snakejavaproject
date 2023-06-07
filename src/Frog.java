@@ -1,14 +1,27 @@
 import java.awt.Color;
-import java.util.Random;
 
+/**
+ * Klasa reprezentująca żabę w grze.
+ */
 public class Frog extends MovingEntity implements Collidable, Renderable, Movable, Edible {
     private boolean freezed = false;
-            
+    /**
+     * Konstruktor klasy Frog.
+     *
+     * @param x           Wartość współrzędnej x.
+     * @param y           Wartość współrzędnej y.
+     * @param _direction  Kierunek poruszania się żaby.
+     */    
     public Frog(int x, int y, Direction _direction) {
         super(x, y, _direction);
         setValues();
     }
-    
+    /**
+     * Konstruktor klasy Frog.
+     *
+     * @param x Wartość współrzędnej x.
+     * @param y Wartość współrzędnej y.
+     */
     public Frog(int x, int y) {
         super(x, y,Direction.UP);
         setValues();
@@ -18,11 +31,15 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
         color = Color.GREEN;
         value = 5;
     }
-    
+    /**
+     * Wyłącza zamrożenie żaby.
+     */
     public void unfreeze(){
         freezed = false;
     }
-    
+    /**
+     * Włącza zamrożenie żaby.
+     */
     public void freeze(){
         freezed = true;
     }
@@ -49,13 +66,9 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
     @Override
     public void think() {
         Rotation[] rotations = Rotation.values();
-//        Random random = new Random();
-//        int randomIndex = random.nextInt(3);
-//        Rotation rotation = rotations[randomIndex];
         Rotation rotation;
         Direction nextDirection = direction;
         Point nextPosition = new Point(pos).translate(nextDirection.getPoint());
-//        direction.rotate(rotation);
         int i = 2;
         unfreeze();
         while(0 > gameState.getValue(nextPosition)){
@@ -63,7 +76,6 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
             nextDirection = direction.rotate(rotation);
             nextPosition = new Point(pos).translate(nextDirection.getPoint());
             direction = direction.rotate(Rotation.LEFT);
-//            System.out.printf("%d, %d , %d\n",i, direction.getPoint().getX(), direction.getPoint().getY());
             i--;
             if(i<0){
                 freeze();
@@ -73,4 +85,3 @@ public class Frog extends MovingEntity implements Collidable, Renderable, Movabl
     }
 
 }
-//nie dziwic sie 

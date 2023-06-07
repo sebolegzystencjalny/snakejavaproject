@@ -185,7 +185,7 @@ public class MenuView extends javax.swing.JPanel {
                 frogs = Integer.parseInt(frogsinput.getText());
             } catch (NumberFormatException nfe) {
             }
-        if(snakes > 0 && snakes < 10 && food > 0 && food < 10 && frogs > 0 && frogs < 10)
+        if(snakes > 0 && snakes < 10 && food > -1 && food < 10 && frogs > -1 && frogs < 10)
             valid = true;
         if(valid){
             topFrame.setValues(snakes, food, frogs);

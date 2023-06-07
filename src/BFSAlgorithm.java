@@ -1,6 +1,17 @@
 import java.util.*;
 
+/**
+ * Klasa zawierająca algorytm przeszukiwania wszerz (BFS) do znajdowania ścieżki.
+ */
 public class BFSAlgorithm {
+    /**
+     * Znajduje ścieżkę między dwoma punktami na podstawie mapy.
+     *
+     * @param map   Mapa reprezentująca środowisko.
+     * @param start Punkt startowy.
+     * @param end   Punkt docelowy.
+     * @return Lista punktów reprezentujących ścieżkę.
+     */
     public static LinkedList<Point> findPath(int[][] map, Point start, Point end) {
         int rows = map.length;
         int cols = map[0].length;
@@ -33,6 +44,13 @@ public class BFSAlgorithm {
         return new LinkedList<>(); // No path found
     }
     
+    /**
+     * Znajduje ścieżkę z punktu startowego na podstawie mapy.
+     *
+     * @param map   Mapa reprezentująca środowisko.
+     * @param start Punkt startowy.
+     * @return Lista punktów reprezentujących ścieżkę.
+     */
     public static LinkedList<Point> findPath(int[][] map, Point start) {
         int rows = map.length;
         int cols = map[0].length;

@@ -1,6 +1,3 @@
-//import static GameBoard.BOARD_HEIGHT;
-//import static GameBoard.BOARD_WIDTH;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Klasa SnakeGame reprezentuje główne okno gry Snake.
+ */
 public class SnakeGame extends JFrame implements ActionListener {
 
     private int snakes = 1;
@@ -17,7 +17,11 @@ public class SnakeGame extends JFrame implements ActionListener {
     private JPanel gameView;
     private JPanel menuView;
     private JPanel mainView;
-
+    
+    /**
+     * Konstruktor klasy SnakeGame.
+     * Tworzy główne okno gry.
+     */
     public SnakeGame() {
         setTitle("Snake Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,9 +31,6 @@ public class SnakeGame extends JFrame implements ActionListener {
         gameView = new GameView();
         menuView = new MenuView();
         mainView = new JPanel();
-//        mainView = menuView;
-
-//        setContentPane(new MenuView().menupanel);
         setLayout(new BorderLayout());
         
 
@@ -47,12 +48,21 @@ public class SnakeGame extends JFrame implements ActionListener {
         });
         pack();
     }
+    /**
+     * Metoda setValues ustawia ilość węży, jedzenia i żab.
+     * @param _snakes liczba węży
+     * @param _food   liczba jedzenia
+     * @param _frogs  liczba żab
+     */
     public void setValues(int _snakes,int _food,int _frogs){
         snakes = _snakes;
         food = _food;
         frogs = _frogs;
     }
-    
+    /**
+     * Metoda returnToMenu powraca do widoku menu głównego.
+     * Resetuje grę i wyświetla menu.
+     */
     public void returnToMenu(){
         mainView.remove(gameView);
         gameView.setFocusable(false);
@@ -64,6 +74,10 @@ public class SnakeGame extends JFrame implements ActionListener {
         mainView.repaint();
     }
     
+    /**
+     * Metoda InitializeGame inicjalizuje rozpoczęcie gry.
+     * Przełącza widok na ekran gry.
+     */
     public void InitializeGame(){
         mainView.remove(menuView);
         menuView.setFocusable(false);
@@ -76,49 +90,8 @@ public class SnakeGame extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-//        if (isRunning) {
-//            move();
-//            observe();
-//            collisionTest();
-
-//            repaint();
     }
 }
-
-////        this.setFocusable(true);
-////        this.set
-////        gameBoard = new GameBoard();
-////        gameView = new GameView();
-//        mainPanel = new JPanel();
-////        this.add(mainPanel);
-//        add(new JButton("HEJ"),"hej");
-//        JPanel menuView = new MenuView();
-//        mainPanel = new JPanel();
-//
-////        mainPanel.add(menuView, "menuView");
-//
-//
-//        this.setTitle("Snake Game");
-//        this.setPreferredSize(new Dimension(1000, 600));
-//        this.setFocusable(true);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.setResizable(false);
-//        this.setVisible(true);
-//        this.setLocationRelativeTo(null);
-//        this.setBackground(Color.DARK_GRAY);
-//
-////        this.addKeyListener(new KeyAdapter() {
-////            @Override
-////            public void keyPressed(KeyEvent e) {
-//////                if (inGame) {
-//////                    //gameState.addInput(e.getKeyCode()); //interfejs ekranu  gry, co dostaje i co zwraca?
-//////                } else {
-//////                    //initiateGame();
-//////                }
-////            }
-////        });
-//        this.pack();
-//        this.setBackground(Color.DARK_GRAY);
 
 
 

@@ -1,11 +1,19 @@
 import java.awt.Color;
 
+/**
+ * Klasa reprezentująca jedzenie w grze.
+ */
 public class Food extends Entity implements Renderable, Collidable, Edible {
     public Food(int x, int y) {
         super(x, y);
         setValues();
     }
-
+    /**
+     * Konstruktor klasy Food.
+     *
+     * @param x Wartość współrzędnej x.
+     * @param y Wartość współrzędnej y.
+     */
     private void setValues(){
         color = Color.RED;
         value = 1;

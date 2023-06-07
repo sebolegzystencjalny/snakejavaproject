@@ -7,22 +7,26 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
-
+/**
+ * Klasa reprezentująca panel gry.
+ */
 public final class GameBoard extends JPanel implements ActionListener {
 
     static final int BOARD_WIDTH = 800;
     static final int BOARD_HEIGHT = 500;
     private int ID;
     final Font font = new Font("TimesRoman", Font.BOLD, 20);
+    private Object mutex = new Object();
     
-    GameState gameState = new GameState(80,50);
+    
     
     ArrayList<MovingEntity> listOfMovables = new ArrayList<>();
     ArrayList<Renderable> listOfRenderables = new ArrayList<>();
     ArrayList<Collidable> listOfCollidables = new ArrayList<>();
+    
+    GameState gameState = new GameState(80,50,listOfCollidables);
     
     ArrayList<Obstacle> listOfObstacles = new ArrayList<>();
     ArrayList<Playable> listOfPlayables = new ArrayList<>();
@@ -31,7 +35,9 @@ public final class GameBoard extends JPanel implements ActionListener {
     boolean inGame = false;
     
     
-
+     /**
+     * Konstruktor klasy GameBoard.
+     */
     public GameBoard() {
         TextureLoader.loadTextures();
         this.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
@@ -49,9 +55,17 @@ public final class GameBoard extends JPanel implements ActionListener {
         });
         initiateGame();
     }
+    /**
+     * Sprawdza, czy gra jest w trakcie.
+     *
+     * @return True, jeśli gra jest w trakcie. False w przeciwnym przypadku.
+     */
     public boolean isGame(){
         return inGame;
     }
+    /**
+     * Inicjalizuje grę.
+     */
     protected void initiateGame() {
         ID = 0;
         inGame = false;
@@ -64,7 +78,13 @@ public final class GameBoard extends JPanel implements ActionListener {
         listOfPlayables = new ArrayList<>();
         listOfEdibles = new ArrayList<>();
     }
-    
+    /**
+     * Inicjalizuje grę z określoną liczbą węży, jedzenia i żab.
+     *
+     * @param snakes Liczba węży.
+     * @param food   Liczba jedzenia.
+     * @param frogs  Liczba żab.
+     */
     protected void initiateGame(int snakes, int food, int frogs) {
         ID = 0;
         ArrayList<Color> values = new ArrayList<>(Arrays.asList(Color.ORANGE,Color.CYAN,Color.WHITE, Color.YELLOW, Color.RED, Color.GREEN, Color.MAGENTA, Color.BLUE, Color.PINK));
@@ -92,21 +112,30 @@ public final class GameBoard extends JPanel implements ActionListener {
         ID++;
     }
     
+    /**
+     * Zwraca wyniki graczy.
+     *
+     * @return Mapa z wynikami graczy, gdzie kluczem jest ID gracza, a wartością jest wynik.
+     */
     public TreeMap<Integer,Integer> getScores(){
         TreeMap<Integer, Integer> scores = new TreeMap<>();
         for(Playable entity : listOfPlayables){
             scores.put(((Entity) entity).getID(), ((Snake) entity).getScore());
         }
         return scores;
-//         ArrayList<Playable> listOfPlayables
     }
-    
+    /**
+     * Dodaje nowy obiekt do gry.
+     *
+     * @param entity Obiekt do dodania.
+     */
     public void addEntity(Entity entity){
         observe();
         entity.setPos(gameState.randomFreeSpace());
         if (entity instanceof MovingEntity) {
             listOfMovables.add((MovingEntity)entity);
             ((MovingEntity)entity).setGameState(gameState);
+            ((MovingEntity)entity).setMutex(mutex);
         }
         if (entity instanceof Playable) {
             listOfPlayables.add((Playable)entity); 
@@ -119,21 +148,24 @@ public final class GameBoard extends JPanel implements ActionListener {
         entity.setID(ID);
         incrementID();
     }
-    
+    /**
+     * Usuwa obiekt z gry.
+     *
+     * @param entity Obiekt do usunięcia.
+     */
     public void removeEntity(Entity entity){
-//        if (entity instanceof Movable) {
-//            listOfMovables.remove((Movable)entity);
-//        }
-//        if (entity instanceof Edible) {
-//            listOfEdibles.remove((Edible)entity);
-//        } 
+        if (entity instanceof Movable) {
+            listOfMovables.remove((Movable)entity);
+        }
+        if (entity instanceof Edible) {
+            listOfEdibles.remove((Edible)entity);
+        } 
         if (entity instanceof Playable) {
             listOfPlayables.remove((Playable)entity); 
         }
-//        if (entity instanceof Obstacle) {
-//            listOfObstacles.remove((Obstacle)entity); 
-//        }
-
+        if (entity instanceof Obstacle) {
+            listOfObstacles.remove((Obstacle)entity); 
+        }
         listOfCollidables.remove((Collidable)entity);
         listOfRenderables.remove((Renderable)entity);
     }
@@ -187,9 +219,14 @@ public final class GameBoard extends JPanel implements ActionListener {
                 ex.printStackTrace();
             }
         }
+        
         gameState.clearInput();
     }
-    
+    /**
+     * Dodaje wciśnięty klawisz do gry.
+     *
+     * @param key Kod wciśniętego klawisza.
+     */
     public void addInput(int key){
         gameState.addInput(key);
     }
@@ -198,16 +235,17 @@ public final class GameBoard extends JPanel implements ActionListener {
         ArrayList<Playable> deadSnakes = new ArrayList<>();
         for (Playable playable : listOfPlayables) {
             for (Edible edible : listOfEdibles) {
-                if(((Collidable)edible).collidesWith((Entity)playable)){
+                if(((Collidable)playable).collidesWith((Entity)edible)){
                     ((Entity)edible).setPos(gameState.randomFreeSpace());
                     ((Snake)playable).increaseSize();
                 }
             }
             for (Collidable collidable : listOfCollidables) {
                 if((collidable).collidesWith((Entity)playable)){
-                    if(collidable instanceof Edible)
+                    if(collidable instanceof Edible || playable instanceof Edible)
                         break;
-                    deadSnakes.add(playable);
+                    else
+                        deadSnakes.add(playable);
                 }
             }
         }

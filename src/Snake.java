@@ -1,14 +1,21 @@
 import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+/**
+ * Klasa Snake reprezentuje węża, który jest poruszającą się jednostką.
+ * Implementuje interfejsy Collidable, Renderable, Movable, Playable.
+ */
 public class Snake extends MovingEntity implements Collidable, Renderable, Movable, Playable{
     private LinkedList<Entity> body;
     private int size;
     private Texture texture;
     private int score = 0;
-    
+    /**
+     * Konstruktor klasy Snake.
+     * @param x       pozycja x węża
+     * @param y       pozycja y węża
+     * @param _ID     identyfikator węża
+     */
     public Snake(int x, int y, int _ID) {
         super(x, y, Direction.UP);
         size = 10;
@@ -16,7 +23,14 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         setValues();
         body = new LinkedList<>();
     }
-    
+    /**
+     * Konstruktor klasy Snake.
+     * @param x            pozycja x węża
+     * @param y            pozycja y węża
+     * @param _ID          identyfikator węża
+     * @param _direction   kierunek węża
+     * @param _size        rozmiar węża
+     */
     public Snake(int x, int y, int _ID, Direction _direction, int _size) {
         super(x, y, _direction);
         size = _size;
@@ -29,16 +43,24 @@ public class Snake extends MovingEntity implements Collidable, Renderable, Movab
         color = Color.ORANGE;
         value = -100;
     }
-    
+    /**
+     * Metoda increaseSize zwiększa rozmiar węża o 1 i zwiększa wynik gracza.
+     */
     public void increaseSize() {
         size++;
         score++;
     }
-
+    /**
+     * Metoda getSize zwraca rozmiar węża.
+     * @return rozmiar węża
+     */
     public int getSize() {
         return size;
     }
-
+    /**
+     * Metoda getScore zwraca wynik gracza.
+     * @return wynik gracza
+     */
     public int getScore() {
         return score;
     }

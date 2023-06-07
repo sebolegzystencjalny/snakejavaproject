@@ -4,10 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Klasa Texture reprezentuje teksturę, która może być wyświetlana na ekranie.
+ * Składa się ona z obrazu reprezentowanego przez dwuwymiarową tablicę znaków oraz pozycji na ekranie.
+ */
 public class Texture implements Renderable{
     char[][] image = new char[PIXEL_SIZE][PIXEL_SIZE];
     Point pos;
-    
+    /**
+     * Konstruktor tworzy pusty obiekt Texture z domyślnymi wartościami.
+     */
     public Texture() {
         for (int row = 0; row < PIXEL_SIZE; row++) {
             for (int col = 0; col < PIXEL_SIZE; col++) {
@@ -15,7 +21,12 @@ public class Texture implements Renderable{
             }
         }
     }
-    
+    /**
+     * Konstruktor tworzy obiekt Texture, odczytując obraz z pliku.
+     * Plik obrazu powinien zawierać prostokątną siatkę znaków reprezentujących piksele.
+     *
+     * @param filePath ścieżka do pliku obrazu
+     */
     public Texture(String filePath) {
         try {
             File file = new File(filePath);
@@ -33,7 +44,13 @@ public class Texture implements Renderable{
             e.printStackTrace();
         }
     }
-    
+    /**
+     * Konstruktor tworzy obiekt Texture, odczytując obraz z pliku i określając jego pozycję na ekranie.
+     * Plik obrazu powinien zawierać prostokątną siatkę znaków reprezentujących piksele.
+     *
+     * @param filePath ścieżka do pliku obrazu
+     * @param _pos     pozycja tekstury na ekranie
+     */
     public Texture(String filePath, Point _pos) {
         pos = _pos;
         try {
@@ -52,7 +69,14 @@ public class Texture implements Renderable{
             e.printStackTrace();
         }
     }
-    
+    /**
+     * Konstruktor tworzy obiekt Texture, odczytując obraz z pliku i określając jego pozycję oraz kierunek na ekranie.
+     * Plik obrazu powinien zawierać prostokątną siatkę znaków reprezentujących piksele.
+     *
+     * @param filePath     ścieżka do pliku obrazu
+     * @param _direction   kierunek tekstury
+     * @param _pos         pozycja tekstury na ekranie
+     */
     public Texture(String filePath, Direction _direction, Point _pos) {
         pos = _pos;
         try {
@@ -100,6 +124,11 @@ public class Texture implements Renderable{
         }
     }
     
+    /**
+     * Aktualizuje pozycję tekstury.
+     *
+     * @param _pos nowa pozycja tekstury
+     */
     public void updateImage(Point _pos){
         pos = _pos;
     }
